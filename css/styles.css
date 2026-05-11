@@ -53,14 +53,13 @@ nav .collapse {
     padding: 50px;
 }
 
-.choose{
-    display: flex;
-    flex-direction: column;
+.choose .card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
 }
 
-.choose .card {
-    justify-content: center;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+.choose .card:hover {
+    box-shadow: 0 8px 12px 0 rgba(0,0,0,0.6);
+    transition: all 0.7s linear;
 }
 
 /*--------QUOTE--------*/
