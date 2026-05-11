@@ -1,0 +1,30 @@
+/* COLOR PALETTE
+
+*/
+
+/*--------MEDIA-QUERIES--------*/
+
+
+
+/*--------GLOBAL-STYLES--------*/
+
+/*BORDER BOX FIX*/
+*, *::before, *::after {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body, html {
+    padding: 0;
+    margin: 0;
+}
+
+
+/*--------INDEX--------*/
+
+/*--------QUOTE--------*/
+
+/*--------ABOUT--------*/
+
+/*--------FAQ--------*/
