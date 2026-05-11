@@ -54,6 +54,16 @@ nav .collapse {
     padding: 50px;
 }
 
+.card {
+    display: flex;
+}
+.card img {
+    display: block;
+    padding-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .choose .card {
     display: flex;
     height: 20rem;
