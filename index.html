@@ -12,30 +12,29 @@
     <link href="css/styles.css" rel="stylesheet">
 
 </head>
-<body>
-
+<body class="index">
     <header>
         <!--GLOBAL NAV BAR-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#"><img alt="Pinnacle Insurance Logo">Pinnacle Shield Insurance</a>
+            <!--<div class="container-fluid">-->
+                <a class="navbar-brand"><img alt="...">Pinnacle Shield Insurance</a>
                 <!--Creates hamburger button at md breakpoint-->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
                     aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Get a Quote</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">FAQ</a></li>
+                    <ul class="navbar-nav mb-2 mb-lg-0 d-flex">
+                        <li class="nav-item px-3"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+                        <li class="nav-item px-3"><a class="nav-link" href="#">Get a Quote</a></li>
+                        <li class="nav-item px-3"><a class="nav-link" href="#">About Us</a></li>
+                        <li class="nav-item px-3"><a class="nav-link" href="#">FAQ</a></li>
                     </ul>
                 </div>
-            </div>
+            <!--</div>-->
         </nav>
     </header>
 
     <main>
-        <section>
+        <section class="hero">
             <!--HERO SECTION-->
             <h1>Protect what matters most</h1>
             <h2>Get personalized auto, home, and life insurance quotes in minutes. Trusted coverage, transparent pricing, no surprises.</h2>
@@ -44,11 +43,11 @@
 
         </section>
 
-        <section>
+        <section class="choose">
             <!--WHY CHOOSE US SECTION
             Starts as 3 Bootstrap cards highlighting benefits, will stack at md breakpoint-->
             <h3>Why choose us?</h3>
-            <div class="row">
+            <div class="row d-flex justify-content-center align-items-center">
                 <div class="col-md-4">
                     <div class="card mb-3" style="width: 18rem">
                         <img src="..." class="card-img-top" alt="...">

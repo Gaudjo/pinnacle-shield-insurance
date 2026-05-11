@@ -20,8 +20,48 @@ body, html {
     margin: 0;
 }
 
+nav button {
+    margin-right: 15px;
+}
+nav .collapse {
+    justify-content: right;
+}
+
 
 /*--------INDEX--------*/
+.index {
+    display: flex;
+    flex-direction: column;
+}
+
+.index .hero {
+    background: #0056b3;
+    color: white;
+    text-align: center;
+}
+
+.index .hero h1, .index .hero h2 {
+    padding: 30px;
+}
+
+.index .hero a {
+    margin: 15px;
+}
+
+.index h3 {
+    text-align: center;
+    padding: 50px;
+}
+
+.choose{
+    display: flex;
+    flex-direction: column;
+}
+
+.choose .card {
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+}
 
 /*--------QUOTE--------*/
 
