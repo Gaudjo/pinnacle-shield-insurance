@@ -32,6 +32,7 @@ nav .collapse {
 .index {
     display: flex;
     flex-direction: column;
+    background: whitesmoke;
 }
 
 .index .hero {
@@ -54,12 +55,44 @@ nav .collapse {
 }
 
 .choose .card {
+    display: flex;
+    height: 20rem;
+    width: 20rem;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
 }
 
 .choose .card:hover {
     box-shadow: 0 8px 12px 0 rgba(0,0,0,0.6);
     transition: all 0.7s linear;
+}
+
+.index .content-wrapper {
+    padding: 30px;
+    margin: 10px;
+    border-radius: 5px;
+    align-items: space-between;
+    color: white;
+    background: #0056b3;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+}
+
+.index .mini-wrap {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    color: black;
+    background: gold;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+}
+
+.index h4 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+.index h5 {
+    padding: 0px 5px;
+    text-decoration: underline;
 }
 
 /*--------QUOTE--------*/
