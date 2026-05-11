@@ -19,7 +19,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#"><img alt="Pinnacle Insurance Logo">Pinnacle Shield Insurance</a>
-                <!--Creates hamburger button at breakpoint-->
+                <!--Creates hamburger button at md breakpoint-->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
                     aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -30,7 +30,6 @@
                         <li class="nav-item"><a class="nav-link" href="#">FAQ</a></li>
                     </ul>
                 </div>
-                
             </div>
         </nav>
     </header>
@@ -40,25 +39,43 @@
             <!--HERO SECTION-->
             <h1>Protect what matters most</h1>
             <h2>Get personalized auto, home, and life insurance quotes in minutes. Trusted coverage, transparent pricing, no surprises.</h2>
+
+
         </section>
 
         <section>
             <!--WHY CHOOSE US SECTION
             Starts as 3 Bootstrap cards highlighting benefits, will stack at md breakpoint-->
             <h3>Why choose us?</h3>
-            <div>
-                <div>
-                    <div>
-                        <h4>"Fast Quotes"</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-3" style="width: 18rem">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h4 class="card-title">"Fast Quotes"</h4>
+                            <p class="card-text">Get an accurate insurance quote in under 5 minutes. Our streamlined process asks only what's needed
+                                - no lengthy applications.</p>
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <div>
-                        <h4>"Trusted Coverage"</h4>
+                <div class="col-md-4">
+                    <div class="card mb-3" style="width: 18rem">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h4 class="card-title">"Trusted Coverage"</h4>
+                            <p class="card-text">With over 40 years of experience, we've protected millions of families. Our coverage plans are designed for
+                                real-life situations.</p>
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <h4>"24/7 Support"</h4>
+                <div class="col-md-4">
+                    <div class="card mb-3" style="width: 18rem">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h4 class="card-title">"24/7 Support"</h4>
+                            <p class="card-text">Our dedicated support team is available around the clock. Whether it's a claim or a question, we're here when you need us.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
