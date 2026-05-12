@@ -147,6 +147,10 @@ nav .collapse {
 }
 
 /*--------QUOTE--------*/
+
+.quote .hidden {
+    display: none;
+}
 .quote .insuranceType {
     cursor: pointer;
     transition: all 0.3s ease;
@@ -176,9 +180,10 @@ nav .collapse {
 .quote .insurance-form {
     margin-top: 20px;
 }
-.quote {
+.quote main {
     display: flex;
     flex-direction: column;
+    padding: 10px;
     background: whitesmoke;
 }
 
