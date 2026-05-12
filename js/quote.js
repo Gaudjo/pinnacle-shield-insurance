@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const insuranceTypes = document.querySelectorAll('.insurance-type');
+    const insuranceTypes = document.querySelectorAll('.insuranceType');
     const forms = {
         auto: document.getElementById('autoForm'),
         home: document.getElementById('homeForm'),
