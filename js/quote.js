@@ -1,3 +1,4 @@
+//Adds functionality for selecting one of the insurance cards
 document.addEventListener('DOMContentLoaded', function() {
     const insuranceTypes = document.querySelectorAll('.insuranceType');
     const forms = {
@@ -6,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         life: document.getElementById('lifeForm')
     };
 
+ //Figures out which card is selected and un-hides the corresponding form 
     insuranceTypes.forEach(card => {
         card.addEventListener('click', function() {
             const type = this.dataset.type;
@@ -25,3 +27,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
