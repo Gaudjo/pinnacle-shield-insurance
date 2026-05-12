@@ -21,6 +21,7 @@ body, html {
     width: 100%;
 }
 
+/*--------NAV-BAR--------*/
 nav button {
     margin-right: 15px;
 }
@@ -111,3 +112,13 @@ nav .collapse {
 /*--------ABOUT--------*/
 
 /*--------FAQ--------*/
+
+/*--------FOOTER--------*/
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 50px;
+    background: #222;
+    color: whitesmoke
+}
