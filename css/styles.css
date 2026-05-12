@@ -1,0 +1,164 @@
+/* COLOR PALETTE
+
+*/
+
+/*--------MEDIA-QUERIES--------*/
+
+/*Mobile*/
+html { font-size: 14px; }
+
+/*Tablet and up (768px+)*/
+@media (min-width: 768px) {
+    html { font-size: 16; }
+}
+
+/*Desktop (1024px+)*/
+@media (min-width: 1024px) {
+    html { font-size: 18px; }
+}
+
+
+/*--------GLOBAL-STYLES--------*/
+
+/*BORDER BOX FIX*/
+*, *::before, *::after {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body, html {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+h1 {
+    font-size: 1.8rem;
+}
+
+h2 {
+    font-size: 1.6rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+h4 {
+    font-size: 1.4rem;
+}
+
+h5 {
+    font-size: 1.2rem;
+}
+
+h6 {
+    font-size: 1rem;
+}
+
+p {
+    font-size: 0.9rem;
+}
+
+/*--------NAV-BAR--------*/
+nav button {
+    margin-right: 15px;
+}
+nav .collapse {
+    justify-content: right;
+}
+
+
+/*--------INDEX--------*/
+.index {
+    display: flex;
+    flex-direction: column;
+    background: whitesmoke;
+}
+
+.index .hero {
+    background: #0056b3;
+    color: white;
+    text-align: center;
+}
+
+.index .hero h1, .index .hero h2 {
+    padding: 30px;
+}
+
+.index .hero a {
+    margin: 15px;
+}
+
+.index h3 {
+    text-align: center;
+    padding: 50px;
+}
+
+.card {
+    display: flex;
+}
+.card img {
+    display: block;
+    padding-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.choose .card {
+    display: flex;
+    height: 20rem;
+    width: 20rem;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+}
+
+.choose .card:hover {
+    box-shadow: 0 8px 12px 0 rgba(0,0,0,0.6);
+    transition: all 0.7s linear;
+}
+
+.index .content-wrapper {
+    padding: 30px;
+    margin: 10px;
+    border-radius: 5px;
+    align-items: space-between;
+    color: white;
+    background: #0056b3;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+}
+
+.index .mini-wrap {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    color: black;
+    background: gold;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+}
+
+.index h4 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+.index h5 {
+    padding: 0px 5px;
+    text-decoration: underline;
+}
+
+/*--------QUOTE--------*/
+
+/*--------ABOUT--------*/
+
+/*--------FAQ--------*/
+
+/*--------FOOTER--------*/
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 50px;
+    background: #222;
+    color: whitesmoke
+}
