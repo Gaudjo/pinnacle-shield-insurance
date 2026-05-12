@@ -33,9 +33,95 @@
     </header>
 
     <main>
+        <h1>Get Your Insurance Quote</h1>
+        <p>Select and insurance type, fill in your details, and get an instant personalized quote with a full breadown of factors</p>
+
         <section>
             <form>
+                <h2>Select Insurance Type</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card insurance-type" data-type="auto">
+                            <div class="card-body text-center">
+                                <input type="radio" name="insuranceType" value="auto" id="auto" class="d-none">
+                                <label for="auto" class="card-label">
+                                    <h5 class="card-title">Auto Insurance</h5>
+                                    <p class="card-text">Protect your vehicle</p>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card insurance-type" data-type="home">
+                            <div class="card-body text-center">
+                                <input type="radio" name="insuranceType" value="home" id="home" class="d-none">
+                                <label for="home" class="card-label">
+                                    <h5 class="card-title">Home Insurance</h5>
+                                    <p class="card-text">Secure your property</p>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card insurance-type" data-type="life">
+                            <div class="card-body text-center">
+                                <input type="radio" name="insuranceType" value="life" id="life" class="d-none">
+                                <label for="life" class="card-label">
+                                    <h5 class="card-title">Life Insurance</h5>
+                                    <p class="card-text">Plan for your future</p>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div id="autoForm" class="insurance-form" style="display: none;">
+                    <h3>Auto Insurance Details</h3>
+                    <div class="mb-3">
+                        <label for="vehicleMake" class="form-label">Vehicle Make</label>
+                        <input type="text" class="form-control" id="vehicleMake" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="vehicleModel" class="form-label">Vehicle Model</label>
+                        <input type="text" class="form-control" id="vehicleModel" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="vehicleYear" class="form-label">Vehicle Year</label>
+                        <input type="number" class="form-control" id="vehicleYear" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Get Quote</button>
+                </div>
+
+                <div id="homeForm" class="insurance-form" style="display: none;">
+                    <h3>Home Insurance Details</h3>
+                    <div class="mb-3">
+                        <label for="propertyType" class="form-label">Property Type</label>
+                        <select class="form-control" id="propertyType" required>
+                            <option value="">Select Type</option>
+                            <option value="house">House</option>
+                            <option value="apartment">Apartment</option>
+                            <option value="condo">Condo</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="propertyValue" class="form-label">Property Value</label>
+                        <input type="number" class="form-control" id="propertyValue" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Get Quote</button>
+                </div>
+
+                <div id="lifeForm" class="insurance-form" style="display: none;">
+                    <h3>Life Insurance Details</h3>
+                    <div class="mb-3">
+                        <label for="age" class="form-label">Age</label>
+                        <input type="number" class="form-control" id="age" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="coverageAmount" class="form-label">Coverage Amount</label>
+                        <input type="number" class="form-control" id="coverageAmount" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Get Quote</button>
+                </div>
             </form>
         </section>
 
@@ -66,6 +152,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+    <script src="js/quote.js"></script>
 
 </body>
 </html>
