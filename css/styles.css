@@ -148,6 +148,12 @@ nav .collapse {
 }
 
 /*--------QUOTE--------*/
+.quote {
+    display: flex;
+    flex-direction: column;
+    background: whitesmoke;
+}
+
 
 /*--------ABOUT--------*/
 
