@@ -214,12 +214,12 @@
                     <!--Does User Have A Sprinkler System?-->
                     <div class="mb-3">
                         <label for="sprinklerSys" class="form-label">Has Sprinkler System</label>
-                        <input type="checkbox" id="sprinklerSys" name="sprinklersys" value="sprinklersystem">
+                        <input type="checkbox" id="sprinklerSys" name="sprinklersys" value="yes">
                     </div>
                     <!--Does User Have A Sprinkler System?-->
                     <div class="mb-3">
                         <label for="securitySys" class="form-label">Has Security System</label>
-                        <input type="checkbox" id="securitySys" name="securitysys" value="securitysystem">
+                        <input type="checkbox" id="securitySys" name="securitysys" value="yes">
                     </div>
                     <button type="submit" class="btn btn-warning col-3">Get Quote</button>
                 </div>
@@ -228,16 +228,76 @@
                 <!--Life-Form-->
                 <div id="lifeForm" class="insurance-form hidden">
                     <h3>Life Insurance Details</h3>
+                    <!--Full Name-->
+                    <div class="mb-3">
+                        <label for="fullName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="fullName" name="fullname" min="2" max="20" required>
+                    </div>
+                    <!--Age-->
                     <div class="mb-3">
                         <label for="age" class="form-label">Age</label>
-                        <input type="number" class="form-control" id="age" required>
+                        <input type="number" class="form-control" id="age" min="18" max="85" name="age" required>
                     </div>
+                    <!--ZIP Code-->
+                    <div class="mb-3">
+                        <label for="zipCode" class="form-label">ZIP Code</label>
+                        <input type="text" class="form-control" id="zipCode" name="zipcode" required>
+                    </div>
+                    <!--Gender-->
+                    <div class="mb-3">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select class="form-control" id="gender" required>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="nonbinary">Non-Binary</option>
+                        </select>
+                    </div>
+                    <!--Is Customer a Smoker?-->
+                    <div class="mb-3">
+                        <legend>Smoker</legend>
+                        <input type="radio" id="smokerchoice1" name="smoker" value="yes" required>
+                        <label for="smokerchoice1">Yes</label>
+                        <input type="radio" id="smokerchoice2" name="smoker" value="no" required>
+                        <label for="smokerchoice2">No</label>
+                    </div>
+                    <!--Coverage Amount-->
                     <div class="mb-3">
                         <label for="coverageAmount" class="form-label">Coverage Amount</label>
-                        <input type="number" class="form-control" id="coverageAmount" required>
+                        <select class="form-control" id="coverageAmount" required>
+                            <option value="100000">$100,000</option>
+                            <option value="250000">$250,000</option>
+                            <option value="500000">$500,000</option>
+                            <option value="1000000">$1,000,000</option>
+                        </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Get Quote</button>
+                    <!--Exercise Frequency-->
+                    <div class="mb-3">
+                        <label for="exercise" class="form-label">Exercise</label>
+                        <select class="form-control" id="coverageAmount" required>
+                            <option value="rarely">Rarely</option>
+                            <option value="1-2times">1-2 Times a Week</option>
+                            <option value="3-4times">3-4 Times a Week</option>
+                            <option value="5times">5+ Times a Week</option>
+                        </select>
+                    </div>
+                    <!--Does User Have A Pre-existing Condition?-->
+                    <div class="mb-3">
+                        <label for="pre-exist" class="form-label">Pre-existing Conditions</label>
+                        <input type="checkbox" id="pre-exist" name="pre-exist" value="yes">
+                    </div>
+                    <!--Coverage Level-->
+                    <div class="mb-3">
+                        <legend>Coverage Level</legend>
+                        <input type="radio" id="coveragechoice1" name="coveragelevel" value="basic" required>
+                        <label for="coveragechoice1">Basic</label>
+                        <input type="radio" id="coveragechoice2" name="coveragelevel" value="standard" required>
+                        <label for="coveragechoice2">Standard</label>
+                        <input type="radio" id="coveragechoice3" name="coveragelevel" value="premium" required>
+                        <label for="coveragechoice3">Premium</label>
+                    </div>
+                    <button type="submit" class="btn btn-warning col-3">Get Quote</button>
                 </div>
+                
             </form>
         </section>
 

@@ -30,6 +30,7 @@ padding: 0;
 body, html {
     padding: 0;
     margin: 0;
+    height: 100%;
 }
 
 h1 {
@@ -147,6 +148,10 @@ nav .collapse {
 }
 
 /*--------QUOTE--------*/
+.quote{
+    display: flex;
+    flex-direction: column;
+}
 
 .quote .hidden {
     display: none;
@@ -181,9 +186,8 @@ nav .collapse {
     margin-top: 20px;
 }
 .quote main {
-    display: flex;
-    flex-direction: column;
     padding: 10px;
+    flex: 1 0 0;
     background: whitesmoke;
 }
 
