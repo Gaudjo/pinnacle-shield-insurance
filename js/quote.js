@@ -36,7 +36,9 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         const selectedType = document.querySelector('input[name="insuranceType"]:checked');
         if (selectedType) {
-            validateForm(selectedType.value);
+            if (validateForm(selectedType.value)) {
+                calculateQuote(selectedType.value);
+            }
         }
     });
     
@@ -57,6 +59,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 const results = document.getElementById('results');
 const validationSummary = document.getElementById('validationSummary');
+
+const currentYear = new Date().getFullYear();
+const vehicleYearInput = document.getElementById('vehicleYear');
 
 //sets the multipliers for each plan choice in the quote calculation
 const planMultipliers = {
@@ -80,8 +85,8 @@ const fieldRules = {
     yearBuilt: {label: 'Year Built', required: true, min: 1900, max: 2026},
     squareFootage: {label: 'Square Footage', required: true, min: 500, max: 10000},
     constructionType: {label: 'Construction Type', required: true},
-    sprinklerSys: {label: 'Fire Sprinkler System', required: true},
-    securitySys: {label: 'Security System', required: true},
+    sprinklerSys: {label: 'Fire Sprinkler System', required: false},
+    securitySys: {label: 'Security System', required: false},
     gender: {label: 'Gender', required: true},
     smoker: {label: 'Smoker Status', required: true},
     coverageAmount: {label: 'Coverage Amount', required: true},
@@ -118,9 +123,7 @@ const fieldNameToIds = {
     preExist: 'pre-exist'
 };
 
-/**
- * Validate a single form field
- */
+//Validate a single form field
 function validateField(field) {
     const fieldId = field.id;
     const rules = fieldRules[fieldId];
@@ -406,4 +409,273 @@ function displayValidationSummary(errors) {
     
     // Scroll to validation summary
     summary.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+
+
+
+
+// INSURANCE QUOTE CALCULATION FUNCTIONS
+
+/**
+ * Main quote calculation function
+ */
+function calculateQuote(insuranceType) {
+    let monthlyPremium = 0;
+    
+    switch(insuranceType) {
+        case 'auto':
+            quote = calculateAutoQuote();
+            break;
+        case 'home':
+            quote = calculateHomeQuote();
+            break;
+        case 'life':
+            quote = calculateLifeQuote();
+            break;
+        default:
+            console.error('Unknown insurance type:', insuranceType);
+            return;
+    }
+    
+    displayQuote(quote, insuranceType);
+}
+
+/**
+ * Calculate auto insurance quote
+ */
+function calculateAutoPremium() {
+    // Base rate for auto insurance
+    let baseRate = 75; // Annual base rate
+    
+    // Get form values
+    const age = parseInt(document.getElementById('age').value);
+    const vehicleYear = parseInt(document.getElementById('vehicleYear').value);
+    const annualMileage = document.getElementById('annualMileage').value;
+    const drivingRecord = document.getElementById('drivingRecord').value;
+    const coverageLevel = document.querySelector('input[name="coverageLevel"]:checked').value;
+    
+    // Age multiplier
+    let ageFactor = 1.0;
+    if (age < 25) ageFactor = 1.5;
+    else if (age < 65) ageFactor = 1.0;
+    else if (age > 65) ageFactor = 1.3;
+    
+    // Vehicle age
+    const currentYear = new Date().getFullYear();
+    const vehicleAge = currentYear - vehicleYear;
+    let vehicleAgeFactor = 1.0;
+    if (vehicleAge <= 2) vehicleAgeFactor = 1.3;
+    else if (vehicleAge < 10) vehicleAgeFactor = 1.0;
+    else vehicleAgeFactor = 0.8;
+    
+    // Annual mileage
+    let mileageFactor = 1.0;
+    switch(annualMileage) {
+        case 'under5000':
+            mileageFactor = 0.8;
+            break;
+        case '5000-10000':
+            mileageFactor = 1.0;
+            break;
+        case '10,001-15000':
+            mileageFactor = 1.1;
+            break;
+        case '15001-20000':
+            mileageFactor = 1.3;
+            break;
+        case 'over20000':
+            mileageFactor = 1.5;
+            break;
+    }
+    
+    // Driving record multiplier
+    let recordMultiplier = 1.0;
+    switch(drivingRecord) {
+        case 'clean':
+            recordMultiplier = 1.0;
+            break;
+        case '1ticket':
+            recordMultiplier = 1.2;
+            break;
+        case '2+tickets':
+            recordMultiplier = 1.5;
+            break;
+        case 'accident':
+            recordMultiplier = 1.8;
+            break;
+    }
+    
+    // Coverage level multiplier
+    let coverageMultiplier = 1.0;
+    switch(coverageLevel) {
+        case 'basic':
+            coverageMultiplier = 0.8;
+            break;
+        case 'standard':
+            coverageMultiplier = 1.0;
+            break;
+        case 'premium':
+            coverageMultiplier = 1.4;
+            break;
+    }
+    
+    // Calculate final quote
+    const autoMonthlyPremium = baseRate * ageFactor * vehicleAgeFactor * 
+                  mileageFactor * recordMultiplier * coverageMultiplier;
+    
+    return Math.round(monthlyPremium);
+}
+
+/**
+ * Calculate home insurance quote
+ */
+function calculateHomePremium() {
+
+    // Get form values
+    const homeValue = parseFloat(document.getElementById('homeValue').value);
+    const yearBuilt = parseInt(document.getElementById('yearBuilt').value);
+    const squareFootage = parseInt(document.getElementById('squareFootage').value);
+    const constructionType = document.getElementById('constructionType').value;
+    const hasSprinkler = document.getElementById('sprinklerSys').checked;
+    const hasSecurity = document.getElementById('securitySys').checked;
+    const coverageLevel = document.querySelector('input[name="coverageLevel"]:checked').value;
+    
+    // Base rate calculation
+    let baseRate = homeValue * (0.003 / 12);
+    
+    // Year Built Factor
+    const currentYear = new Date().getFullYear();
+    const homeAge = currentYear - yearBuilt;
+    let builtFactor = 1.0;
+    if (homeAge <= 26) builtFactor = 1.0;
+    else if (homeAge <= 56) builtFactor = 1.1;
+    else builtFactor = 1.4;
+    
+    // Size Factor
+    let sizeFactor = squareFootage * (0.01 / 12);
+
+    
+    // Construction Factor
+    let constructionFactor = 1.0;
+    switch(constructionType) {
+        case 'wood':
+            constructionFactor = 1.2;
+            break;
+        case 'brick':
+            constructionFactor = 1.0; 
+            break;
+        case 'concrete':
+            constructionFactor = 0.9;
+            break;
+        case 'steel':
+            constructionFactor = 0.85;
+            break;
+    }
+    
+    // Safety features discounts
+    let safetyDiscount = 1.0;
+    if (hasSprinkler) safetyDiscount *= 0.92; // 8% discount for sprinkler
+    if (hasSecurity) safetyDiscount *= 0.95; // 5% discount for security system
+    
+    // Coverage level multiplier
+    let coverageMultiplier = 1.0;
+    switch(coverageLevel) {
+        case 'basic':
+            coverageMultiplier = 0.8;
+            break;
+        case 'standard':
+            coverageMultiplier = 1.0;
+            break;
+        case 'premium':
+            coverageMultiplier = 1.4;
+            break;
+    }
+    
+    // Premium formula
+    const monthlyPremium = baseRate * builtFactor * sizeFactor * constructionFactor * 
+                  safetyDiscount * coverageMultiplier;
+    
+    return Math.round(monthlyPremium);
+}
+
+/**
+ * Calculate life insurance quote
+ */
+function calculateLifePremium() {
+    // Get form values
+    const age = parseInt(document.getElementById('age').value);
+    const gender = document.getElementById('gender').value;
+    const isSmoker = document.querySelector('input[name="smoker"]:checked').value === 'yes';
+    const coverageAmount = parseInt(document.getElementById('coverageAmount').value);
+    const exercise = document.getElementById('exercise').value;
+    const hasPreExisting = document.getElementById('pre-exist').checked;
+    const coverageLevel = document.querySelector('input[name="coverageLevel"]:checked').value;
+    
+    // Base rate
+    let baseRate = coverageAmount * (0.0005 / 12)
+    
+    // Age Factor
+    let ageFactor = 1.0;
+    if (age < 30) ageFactor = 1.0;
+    else if (age < 45) ageFactor = 1.5;
+    else if (age < 60) ageMultiplier = 2.5;
+    else if (age < 85) ageMultiplier = 4.0;
+
+    // Gender Factor
+   let genderFactor = 1.0;
+   switch(gender) {
+    case 'male':
+        genderFactor = 1.1;
+        break;
+    case 'female':
+        genderFactor = 1.0;
+        break; 
+    case 'nonbinary':
+        genderFactor = 1.05;
+        break;   
+   }
+    
+    // Smoking multiplier
+    let smokingMultiplier = isSmoker ? 2.0 : 1.0;
+    
+    // Exercise frequency
+    let exerciseMultiplier = 1.0;
+    switch(exercise) {
+        case 'rarely':
+            exerciseMultiplier = 1.4;
+            break;
+        case '1-2times':
+            exerciseMultiplier = 1.1;
+            break;
+        case '3-4times':
+            exerciseMultiplier = 0.9;
+            break;
+        case '5times':
+            exerciseMultiplier = 0.8;
+            break;
+    }
+    
+    // Pre-existing conditions multiplier
+    let healthMultiplier = hasPreExisting ? 1.5 : 1.0;
+    
+    // Coverage level multiplier
+    let coverageMultiplier = 1.0;
+    switch(coverageLevel) {
+        case 'basic':
+            coverageMultiplier = 0.8;
+            break;
+        case 'standard':
+            coverageMultiplier = 1.0;
+            break;
+        case 'premium':
+            coverageMultiplier = 1.4;
+            break;
+    }
+    
+    // Premium formula
+    const monthlyPremium = baseRate * ageFactor * genderFactor * smokingMultiplier * 
+                  exerciseMultiplier * healthMultiplier * coverageMultiplier;
+    
+    return Math.round(monthlyPremium);
 }
