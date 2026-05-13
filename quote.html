@@ -78,15 +78,15 @@
                 </div>
 
                 <!--Auto-Form-->
-                <div id="autoError"></div>
                     <div id="autoForm" class="insurance-form hidden">
+                        <div id="validationSummary" class="validation-summary hidden" role="alert"></div>
                         <h3>Auto Insurance Details</h3>
                         <p>* All fields required *</p>
                         <div class="row g-2">
                             <!--Full Name-->
                             <div class="mb-3 col-md-6">
                                 <label for="fullName" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="fullName" name="fullname" minlength="2" maxlength="20" required>
+                                <input type="text" class="form-control" id="fullName" name="fullname" required>
                             </div>
                             <!--Age-->
                             <div class="mb-3 col-md-6">
@@ -147,11 +147,11 @@
                             <!--Coverage Level-->
                             <div class="mb-3 col-md-6">
                                 <legend>Coverage Level</legend>
-                                <input type="radio" id="coveragechoice1" name="coveragelevel" value="basic" required>
+                                <input type="radio" id="coveragechoice1" name="coverageLevel" value="basic" required>
                                 <label for="coveragechoice1">Basic</label>
-                                <input type="radio" id="coveragechoice2" name="coveragelevel" value="standard" required>
+                                <input type="radio" id="coveragechoice2" name="coverageLevel" value="standard" required>
                                 <label for="coveragechoice2">Standard</label>
-                                <input type="radio" id="coveragechoice3" name="coveragelevel" value="premium" required>
+                                <input type="radio" id="coveragechoice3" name="coverageLevel" value="premium" required>
                                 <label for="coveragechoice3">Premium</label>
                             </div>
                             <button type="submit" class="btn btn-warning col-3">Get Quote</button>
@@ -160,6 +160,7 @@
 
                 <!--Home-Form-->
                 <div id="homeForm" class="insurance-form hidden">
+                    <div id="validationSummary" class="validation-summary hidden" role="alert"></div>
                     <h3>Home Insurance Details</h3>
                     <!--Full Name-->
                     <div class="mb-3">
@@ -205,19 +206,19 @@
                     <!--Coverage Level-->
                     <div class="mb-3 col-md-6">
                         <legend>Coverage Level</legend>
-                        <input type="radio" id="coveragechoice1" name="coveragelevel" value="basic" required>
+                        <input type="radio" id="coveragechoice1" name="coverageLevel" value="basic" required>
                         <label for="coveragechoice1">Basic</label>
-                        <input type="radio" id="coveragechoice2" name="coveragelevel" value="standard" required>
+                        <input type="radio" id="coveragechoice2" name="coverageLevel" value="standard" required>
                         <label for="coveragechoice2">Standard</label>
-                        <input type="radio" id="coveragechoice3" name="coveragelevel" value="premium" required>
+                        <input type="radio" id="coveragechoice3" name="coverageLevel" value="premium" required>
                         <label for="coveragechoice3">Premium</label>
                     </div>
                     <!--Does User Have A Sprinkler System?-->
                     <div class="mb-3">
-                        <label for="sprinklerSys" class="form-label">Has Sprinkler System</label>
+                        <label for="sprinklerSys" class="form-label">Has Fire Sprinkler System</label>
                         <input type="checkbox" id="sprinklerSys" name="sprinklersys" value="yes">
                     </div>
-                    <!--Does User Have A Sprinkler System?-->
+                    <!--Does User Have A Security System?-->
                     <div class="mb-3">
                         <label for="securitySys" class="form-label">Has Security System</label>
                         <input type="checkbox" id="securitySys" name="securitysys" value="yes">
@@ -228,6 +229,7 @@
 
                 <!--Life-Form-->
                 <div id="lifeForm" class="insurance-form hidden">
+                    <div id="validationSummary" class="validation-summary hidden" role="alert"></div>
                     <h3>Life Insurance Details</h3>
                     <!--Full Name-->
                     <div class="mb-3">
@@ -274,7 +276,7 @@
                     <!--Exercise Frequency-->
                     <div class="mb-3">
                         <label for="exercise" class="form-label">Exercise</label>
-                        <select class="form-control" id="coverageAmount" required>
+                        <select class="form-control" id="exercise" required>
                             <option value="rarely">Rarely</option>
                             <option value="1-2times">1-2 Times a Week</option>
                             <option value="3-4times">3-4 Times a Week</option>
@@ -289,11 +291,11 @@
                     <!--Coverage Level-->
                     <div class="mb-3">
                         <legend>Coverage Level</legend>
-                        <input type="radio" id="coveragechoice1" name="coveragelevel" value="basic" required>
+                        <input type="radio" id="coveragechoice1" name="coverageLevel" value="basic" required>
                         <label for="coveragechoice1">Basic</label>
-                        <input type="radio" id="coveragechoice2" name="coveragelevel" value="standard" required>
+                        <input type="radio" id="coveragechoice2" name="coverageLevel" value="standard" required>
                         <label for="coveragechoice2">Standard</label>
-                        <input type="radio" id="coveragechoice3" name="coveragelevel" value="premium" required>
+                        <input type="radio" id="coveragechoice3" name="coverageLevel" value="premium" required>
                         <label for="coveragechoice3">Premium</label>
                     </div>
                     <button type="submit" class="btn btn-warning col-3">Get Quote</button>
