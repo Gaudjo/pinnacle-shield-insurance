@@ -421,24 +421,24 @@ function displayValidationSummary(errors) {
  * Main quote calculation function
  */
 function calculateQuote(insuranceType) {
-    let monthlyPremium = 0;
+    let result = {};
     
     switch(insuranceType) {
         case 'auto':
-            quote = calculateAutoQuote();
+            result = calculateAutoPremium();
             break;
         case 'home':
-            quote = calculateHomeQuote();
+            result = calculateHomePremium();
             break;
         case 'life':
-            quote = calculateLifeQuote();
+            result = calculateLifePremium();
             break;
         default:
             console.error('Unknown insurance type:', insuranceType);
             return;
     }
     
-    displayQuote(quote, insuranceType);
+    displayQuote(result, insuranceType);
 }
 
 /**
@@ -446,7 +446,7 @@ function calculateQuote(insuranceType) {
  */
 function calculateAutoPremium() {
     // Base rate for auto insurance
-    let baseRate = 75; // Annual base rate
+    let baseRate = 75; // Monthly base rate
     
     // Get form values
     const age = parseInt(document.getElementById('age').value);
@@ -457,81 +457,130 @@ function calculateAutoPremium() {
     
     // Age multiplier
     let ageFactor = 1.0;
-    if (age < 25) ageFactor = 1.5;
-    else if (age < 65) ageFactor = 1.0;
-    else if (age > 65) ageFactor = 1.3;
+    let ageDescription = "Standard rate";
+    if (age < 25) {
+        ageFactor = 1.5;
+        ageDescription = "Young driver surcharge (under 25)";
+    } else if (age > 65) {
+        ageFactor = 1.3;
+        ageDescription = "Senior driver adjustment (over 65)";
+    }
     
     // Vehicle age
     const currentYear = new Date().getFullYear();
     const vehicleAge = currentYear - vehicleYear;
     let vehicleAgeFactor = 1.0;
-    if (vehicleAge <= 2) vehicleAgeFactor = 1.3;
-    else if (vehicleAge < 10) vehicleAgeFactor = 1.0;
-    else vehicleAgeFactor = 0.8;
+    let vehicleAgeDescription = "Standard vehicle age";
+    if (vehicleAge <= 2) {
+        vehicleAgeFactor = 1.3;
+        vehicleAgeDescription = "New vehicle surcharge";
+    } else if (vehicleAge > 10) {
+        vehicleAgeFactor = 0.8;
+        vehicleAgeDescription = "Older vehicle discount";
+    }
     
     // Annual mileage
     let mileageFactor = 1.0;
+    let mileageDescription = "Standard mileage";
     switch(annualMileage) {
         case 'under5000':
             mileageFactor = 0.8;
+            mileageDescription = "Low mileage discount";
             break;
         case '5000-10000':
             mileageFactor = 1.0;
+            mileageDescription = "Standard mileage";
             break;
         case '10,001-15000':
             mileageFactor = 1.1;
+            mileageDescription = "Moderate mileage surcharge";
             break;
         case '15001-20000':
             mileageFactor = 1.3;
+            mileageDescription = "High mileage surcharge";
             break;
         case 'over20000':
             mileageFactor = 1.5;
+            mileageDescription = "Very high mileage surcharge";
             break;
     }
     
     // Driving record multiplier
     let recordMultiplier = 1.0;
+    let recordDescription = "Clean record";
     switch(drivingRecord) {
-        case 'clean':
-            recordMultiplier = 1.0;
-            break;
         case '1ticket':
             recordMultiplier = 1.2;
+            recordDescription = "One traffic ticket";
             break;
         case '2+tickets':
             recordMultiplier = 1.5;
+            recordDescription = "Multiple traffic tickets";
             break;
         case 'accident':
             recordMultiplier = 1.8;
+            recordDescription = "Recent accident";
             break;
     }
     
     // Coverage level multiplier
     let coverageMultiplier = 1.0;
+    let coverageDescription = "Standard coverage";
     switch(coverageLevel) {
         case 'basic':
             coverageMultiplier = 0.8;
-            break;
-        case 'standard':
-            coverageMultiplier = 1.0;
+            coverageDescription = "Basic coverage discount";
             break;
         case 'premium':
             coverageMultiplier = 1.4;
+            coverageDescription = "Premium coverage surcharge";
             break;
     }
     
-    // Calculate final quote
-    const autoMonthlyPremium = baseRate * ageFactor * vehicleAgeFactor * 
-                  mileageFactor * recordMultiplier * coverageMultiplier;
+    // Calculate final monthly premium
+    const monthlyPremium = baseRate * ageFactor * vehicleAgeFactor * 
+        mileageFactor * recordMultiplier * coverageMultiplier;
     
-    return Math.round(monthlyPremium);
+    // Create breakdown array
+    const breakdown = [
+        { factor: "Base Rate", userInput: "$75/month", impact: "$Starting rate" },
+
+        { factor: "Age", userInput: `${age} years`,
+            impact: ageFactor === 1.0 ? "No change" : `${(ageFactor * 100 - 100).toFixed(0)}% 
+            ${ageFactor > 1 ? 'increase' : 'decrease'}` },
+
+        { factor: "Vehicle Age", userInput: `${vehicleYear} (${vehicleAge} years old)`, 
+            impact: vehicleAgeFactor === 1.0 ? "No change" : `${(vehicleAgeFactor * 100 - 100).toFixed(0)}% 
+            ${vehicleAgeFactor > 1 ? 'increase' : 'decrease'}` },
+
+        { factor: "Annual Mileage", userInput: annualMileage.replace(/(\d)/g, '$1,').replace('under5000', 'Under 5,000')
+            .replace('5000-10000', '5,000-10,000').replace('10,001-15000', '10,001-15,000')
+            .replace('15001-20000', '15,001-20,000').replace('over20000', 'Over 20,000'), 
+            impact: mileageFactor === 1.0 ? "No change" : `${(mileageFactor * 100 - 100).toFixed(0)}% 
+            ${mileageFactor > 1 ? 'increase' : 'decrease'}` },
+
+        { factor: "Driving Record", userInput: drivingRecord.charAt(0).toUpperCase() 
+            + drivingRecord.slice(1).replace('1ticket', '1 Ticket').replace('2+tickets', '2+ Tickets')
+            .replace('accident', 'Accident'), impact: recordMultiplier === 1.0 ? "No change" : 
+            `${(recordMultiplier * 100 - 100).toFixed(0)}% increase` },
+
+        { factor: "Coverage Level", userInput: coverageLevel.charAt(0).toUpperCase() 
+            + coverageLevel.slice(1), impact: coverageMultiplier === 1.0 ? "No change" : 
+            `${Math.abs(coverageMultiplier * 100 - 100).toFixed(0)}% ${coverageMultiplier > 1 ? 
+            'increase' : 'decrease'}` }
+    ];
+    
+    return {
+        monthlyPremium: Math.round(monthlyPremium),
+        annualPremium: Math.round(monthlyPremium * 12),
+        breakdown: breakdown
+    };
 }
 
 /**
  * Calculate home insurance quote
  */
 function calculateHomePremium() {
-
     // Get form values
     const homeValue = parseFloat(document.getElementById('homeValue').value);
     const yearBuilt = parseInt(document.getElementById('yearBuilt').value);
@@ -541,62 +590,116 @@ function calculateHomePremium() {
     const hasSecurity = document.getElementById('securitySys').checked;
     const coverageLevel = document.querySelector('input[name="coverageLevel"]:checked').value;
     
-    // Base rate calculation
-    let baseRate = homeValue * (0.003 / 12);
+    // Base rate (monthly)
+    const baseRate = (homeValue * 0.003) / 12;
     
     // Year Built Factor
     const currentYear = new Date().getFullYear();
     const homeAge = currentYear - yearBuilt;
     let builtFactor = 1.0;
-    if (homeAge <= 26) builtFactor = 1.0;
-    else if (homeAge <= 56) builtFactor = 1.1;
-    else builtFactor = 1.4;
+    let builtDescription = "Standard age home";
+    if  (homeAge <= 26) {
+        builtFactor = 1.0;
+        builtDescription = "Standard age home";
+    } else if (homeAge < 50) {
+        builtFactor = 1.2;
+        builtDescription = "Older home surcharge";
+    } else {
+        builtFactor = 1.4;
+        builtDescription = "Very old home surcharge";
+    }
     
     // Size Factor
-    let sizeFactor = squareFootage * (0.01 / 12);
+    let sizeFactor = (homeValue * 0.01) / 12;
+    let sizeDescription = "Per square foot: + $0.01/month"
 
     
     // Construction Factor
     let constructionFactor = 1.0;
+    let constructionDescription = "Standard construction";
     switch(constructionType) {
         case 'wood':
             constructionFactor = 1.2;
+            constructionDescription = "Wood frame (higher fire risk)";
             break;
         case 'brick':
-            constructionFactor = 1.0; 
+            constructionFactor = 1.0;
+            constructionDescription = "Brick construction (lower risk)";
             break;
         case 'concrete':
             constructionFactor = 0.9;
+            constructionDescription = "Concrete construction (lowest risk)";
             break;
         case 'steel':
             constructionFactor = 0.85;
+            constructionDescription = "Steel construction (very low risk)";
             break;
     }
     
     // Safety features discounts
     let safetyDiscount = 1.0;
-    if (hasSprinkler) safetyDiscount *= 0.92; // 8% discount for sprinkler
-    if (hasSecurity) safetyDiscount *= 0.95; // 5% discount for security system
+    let safetyDescription = "No impact";
+    if (hasSprinkler && hasSecurity) {
+        safetyDiscount = 0.874; // 12.6% total discount (8% + 5% - some overlap)
+        safetyDescription = "Sprinkler & security system";
+    } else if (hasSprinkler) {
+        safetyDiscount = 0.92;
+        safetyDescription = "Fire sprinkler system";
+    } else if (hasSecurity) {
+        safetyDiscount = 0.95;
+        safetyDescription = "Security system";
+    }
     
     // Coverage level multiplier
     let coverageMultiplier = 1.0;
+    let coverageDescription = "Standard coverage";
     switch(coverageLevel) {
         case 'basic':
             coverageMultiplier = 0.8;
-            break;
-        case 'standard':
-            coverageMultiplier = 1.0;
+            coverageDescription = "Basic coverage discount";
             break;
         case 'premium':
             coverageMultiplier = 1.4;
+            coverageDescription = "Premium coverage surcharge";
             break;
     }
     
-    // Premium formula
+    // Calculate monthly premium
     const monthlyPremium = baseRate * builtFactor * sizeFactor * constructionFactor * 
-                  safetyDiscount * coverageMultiplier;
+        safetyDiscount * coverageMultiplier;
     
-    return Math.round(monthlyPremium);
+    // Create breakdown array
+    const breakdown = [
+        { factor: "Base Rate", userInput: `0.35% of $${homeValue.toLocaleString()}`, impact: `$${(baseRate).toFixed(2)}
+            /month` },
+
+        { factor: "Home Age", userInput: `${yearBuilt} (${homeAge} years old)`, 
+            impact: builtFactor === 1.0 ? "No change" : `${Math.abs(builtFactor * 100 - 100).toFixed(0)}% 
+            ${builtFactor > 1 ? 'increase' : 'decrease'}` },
+
+        { factor: "Home Size", userInput: `${squareFootage.toLocaleString()} sq ft`, 
+            impact: sizeFactor === 1.0 ? "No change" : `${(sizeFactor * 100 - 100).toFixed(0)}% 
+            ${sizeFactor > 1 ? 'increase' : 'decrease'}` },
+
+        { factor: "Construction Type", userInput: constructionType.charAt(0).toUpperCase() + 
+            constructionType.slice(1), impact: constructionFactor === 1.0 ? "No change" : 
+            `${Math.abs(constructionFactor * 100 - 100).toFixed(0)}% ${constructionFactor > 1 ? 
+                'increase' : 'decrease'}` },
+
+        { factor: "Safety Features", userInput: safetyDescription, impact: safetyDiscount === 1.0 ? 
+            "No change" : `${Math.abs((1 - safetyDiscount) * 100).toFixed(1)}% decrease` },
+
+        { factor: "Coverage Level", userInput: coverageLevel.charAt(0).toUpperCase() 
+            + coverageLevel.slice(1), impact: coverageMultiplier === 1.0 ? "No change" : 
+            `${Math.abs(coverageMultiplier * 100 - 100).toFixed(0)}% ${coverageMultiplier > 1 ? 
+                'increase' : 'decrease'}` }
+    ];
+    
+    return {
+        monthlyPremium: Math.round(monthlyPremium),
+        annualPremium: Math.round(monthlyPremium * 12),
+        breakdown: breakdown
+    };
 }
 
 /**
@@ -612,70 +715,136 @@ function calculateLifePremium() {
     const hasPreExisting = document.getElementById('pre-exist').checked;
     const coverageLevel = document.querySelector('input[name="coverageLevel"]:checked').value;
     
-    // Base rate
-    let baseRate = coverageAmount * (0.0005 / 12)
+    // Base rate (monthly)
+    const baseMonthlyRate = (coverageAmount * 0.0005) / 12
     
     // Age Factor
     let ageFactor = 1.0;
-    if (age < 30) ageFactor = 1.0;
-    else if (age < 45) ageFactor = 1.5;
-    else if (age < 60) ageMultiplier = 2.5;
-    else if (age < 85) ageMultiplier = 4.0;
-
+    let ageDescription = "Standard age rate";
+    if (age < 30) {
+        ageFactor = 1.0;
+        ageDescription = "Standard age rate";
+    } else if (age < 45) {
+        ageFactor = 1.5;
+        ageDescription = "Middle age rate";
+    } else if (age < 60) {
+        ageFactor = 2.5;
+        ageDescription = "Senior surcharge";
+    } else {
+        ageFactor = 4.0;
+        ageDescription = "End of life surcharge";
+    }
+    
     // Gender Factor
-   let genderFactor = 1.0;
-   switch(gender) {
-    case 'male':
-        genderFactor = 1.1;
-        break;
-    case 'female':
-        genderFactor = 1.0;
-        break; 
-    case 'nonbinary':
-        genderFactor = 1.05;
-        break;   
-   }
+    let genderFactor = 1.0;
+    let genderDescription = "Standard rate";
+    switch(gender) {
+        case 'male':
+            genderFactor = 1.1;
+            genderDescription = "Male";
+            break;
+        case 'female':
+            genderFactor = 1.0;
+            genderDescription = "Female";
+            break; 
+        case 'nonbinary':
+            genderFactor = 1.05;
+            genderDescription = "Non-binary";
+            break;   
+    }
     
     // Smoking multiplier
-    let smokingMultiplier = isSmoker ? 2.0 : 1.0;
+    let smokingMultiplier = 1.0;
+    let smokingDescription = "Non-smoker";
+    if (isSmoker) {
+        smokingMultiplier = 2.0;
+        smokingDescription = "Smoker";
+    }
     
     // Exercise frequency
     let exerciseMultiplier = 1.0;
+    let exerciseDescription = "Standard activity level";
     switch(exercise) {
         case 'rarely':
-            exerciseMultiplier = 1.4;
+            exerciseMultiplier = 1.3;
+            exerciseDescription = "Sedentary lifestyle surcharge";
             break;
         case '1-2times':
-            exerciseMultiplier = 1.1;
+            exerciseMultiplier = 1.2;
+            exerciseDescription = "Light exercise";
             break;
         case '3-4times':
-            exerciseMultiplier = 0.9;
+            exerciseMultiplier = 1.0;
+            exerciseDescription = "Standard activity level";
             break;
         case '5times':
-            exerciseMultiplier = 0.8;
+            exerciseMultiplier = 0.9;
+            exerciseDescription = "Active lifestyle discount";
             break;
     }
     
     // Pre-existing conditions multiplier
-    let healthMultiplier = hasPreExisting ? 1.5 : 1.0;
+    let healthMultiplier = 1.0;
+    let healthDescription = "No pre-existing conditions";
+    if (hasPreExisting) {
+        healthMultiplier = 1.5;
+        healthDescription = "Pre-existing conditions surcharge";
+    }
     
     // Coverage level multiplier
     let coverageMultiplier = 1.0;
+    let coverageDescription = "Standard coverage";
     switch(coverageLevel) {
         case 'basic':
             coverageMultiplier = 0.8;
-            break;
-        case 'standard':
-            coverageMultiplier = 1.0;
+            coverageDescription = "Basic coverage discount";
             break;
         case 'premium':
             coverageMultiplier = 1.4;
+            coverageDescription = "Premium coverage surcharge";
             break;
     }
     
-    // Premium formula
-    const monthlyPremium = baseRate * ageFactor * genderFactor * smokingMultiplier * 
-                  exerciseMultiplier * healthMultiplier * coverageMultiplier;
+    // Calculate monthly premium
+    const monthlyPremium = baseMonthlyRate * ageFactor * genderFactor * smokingMultiplier * 
+                          exerciseMultiplier * healthMultiplier * coverageMultiplier;
     
-    return Math.round(monthlyPremium);
+    // Create breakdown array
+    const breakdown = [
+        { factor: "Base Rate", userInput: `$${baseRatePerThousand}/month per $1,000`, impact: 
+            `$${(baseMonthlyRate).toFixed(2)}/month` },
+
+        { factor: "Coverage Amount", userInput: `$${coverageAmount.toLocaleString()}`, 
+            impact: "Sets base premium" },
+
+        { factor: "Age", userInput: `${age} years`, impact: ageFactor === 1.0 ? 
+            "No change" : `${Math.abs(ageFactor * 100 - 100).toFixed(0)}% ${ageFactor > 1 ? 
+            'increase' : 'decrease'}` },
+
+        { factor: "Gender", userInput: gender.charAt(0).toUpperCase() + gender.slice(1), 
+            impact: genderFactor === 1.0 ? "No change" : `${Math.abs(genderFactor * 100 - 100).toFixed(0)}% 
+            ${genderFactor > 1 ? 'increase' : 'decrease'}` },
+
+        { factor: "Smoking Status", userInput: isSmoker ? "Smoker" : "Non-smoker", 
+            impact: smokingMultiplier === 1.0 ? "No change" : `${(smokingMultiplier * 100 - 100).toFixed(0)}
+            % increase` },
+
+        { factor: "Exercise Frequency", userInput: exercise.replace('1-2times', '1-2 times/week')
+            .replace('3-4times', '3-4 times/week').replace('5times', '5+ times/week').replace('rarely', 'Rarely'), 
+            impact: exerciseMultiplier === 1.0 ? "No change" : `${Math.abs(exerciseMultiplier * 100 - 100).toFixed(0)}% 
+            ${exerciseMultiplier > 1 ? 'increase' : 'decrease'}` },
+
+        { factor: "Health History", userInput: hasPreExisting ? "Pre-existing conditions" : "No pre-existing conditions", 
+            impact: healthMultiplier === 1.0 ? "No change" : `${(healthMultiplier * 100 - 100).toFixed(0)}% increase` },
+
+        { factor: "Coverage Level", userInput: coverageLevel.charAt(0).toUpperCase() + coverageLevel.slice(1), 
+            impact: coverageMultiplier === 1.0 ? "No change" : `${Math.abs(coverageMultiplier * 100 - 100).toFixed(0)}% 
+            ${coverageMultiplier > 1 ? 'increase' : 'decrease'}` }
+    ];
+    
+    return {
+        monthlyPremium: Math.round(monthlyPremium),
+        annualPremium: Math.round(monthlyPremium * 12),
+        breakdown: breakdown
+    };
 }
