@@ -191,6 +191,16 @@ nav .collapse {
     background: whitesmoke;
 }
 
+form .form-control.error {
+    border-color: red;
+}
+
+form .form-control .autoError {
+    color: red;
+    font-size: 9px;
+    height: 13px;
+}
+
 
 /*--------ABOUT--------*/
 
