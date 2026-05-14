@@ -433,6 +433,9 @@ function calculateQuote(insuranceType) {
         case 'life':
             result = calculateLifePremium();
             break;
+        default:
+            console.error('Unknown insurance type:', insuranceType);
+            return;
     }
     
     displayQuote(result, insuranceType);
@@ -844,13 +847,4 @@ function calculateLifePremium() {
         annualPremium: Math.round(monthlyPremium * 12),
         breakdown: breakdown
     };
-}
-
-function addBreakdownRow(breakdown, factor, userInput, impact) {
-var row = document.createElement('tr');
-row.textContent =
-'<td>' + factor + '</td>' +
-'<td>' + userValue + '</td>' +
-'<td>' + impact + '</td>';
-tbody.appendChild(row);
 }
