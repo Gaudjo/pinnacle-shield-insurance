@@ -2,9 +2,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     const insuranceTypes = document.querySelectorAll('.insuranceType');
     const forms = {
-        auto: document.getElementById('autoQuoteForm'),
-        home: document.getElementById('homeQuoteForm'),
-        life: document.getElementById('lifeQuoteForm')
+        auto: document.getElementById('autoForm'),
+        home: document.getElementById('homeForm'),
+        life: document.getElementById('lifeForm')
     };
 
  //Figures out which card is selected and un-hides the corresponding form 
@@ -157,9 +157,9 @@ function validateField(field) {
     return isValid;
 }
 
-/**
- * Validate a radio button group
- */
+
+// Validate a radio button group
+ 
 function validateRadioGroup(groupName) {
     const radioGroup = document.querySelectorAll(`input[name="${groupName}"]`);
     const isChecked = Array.from(radioGroup).some(radio => radio.checked);
@@ -258,7 +258,7 @@ function getErrorMessage(field, rules) {
     }
     
     if (rules.pattern && value && !rules.pattern.test(value)) {
-        if (field.id === 'zipCode') {
+        if (field.id === 'autoZipCode' | 'homeZipCode' | 'lifeZipCode') {
             return `${label} must be a valid 5-digit ZIP code`;
         }
         return `${label} contains invalid characters`;
@@ -281,9 +281,8 @@ function getErrorMessage(field, rules) {
     return `${label} is invalid`;
 }
 
-/**
- * Mark a field as having an error
- */
+
+ // Mark a field as having an error
 function setFieldError(field, errorMessage) {
     // Add error class to field
     field.classList.add('error');
@@ -341,9 +340,8 @@ function clearAllErrors() {
     }
 }
 
-/**
- * Validate all fields in the active form
- */
+
+ // Validate all fields in the active form
 function validateForm(insuranceType) {
     clearAllErrors();
     
@@ -385,9 +383,8 @@ function validateForm(insuranceType) {
     return true;
 }
 
-/**
- * Get list of fields to validate based on insurance type
- */
+
+// Get list of fields to validate based on insurance type
 function getFieldsForType(insuranceType) {
     let fields = [...commonFields];
     
@@ -406,36 +403,11 @@ function getFieldsForType(insuranceType) {
     return fields;
 }
 
-/**
- * Display validation summary with all errors
- */
-function displayValidationSummary(errors) {
-    const summary = document.getElementById('validationSummary');
-    
-    if (!summary) return;
-    
-    let html = '<strong>Please fix the following errors:</strong><ul>';
-    errors.forEach(error => {
-        html += `<li>${error}</li>`;
-    });
-    html += '</ul>';
-    
-    summary.innerHTML = html;
-    summary.classList.remove('hidden');
-    
-    // Scroll to validation summary
-    summary.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
+//---------------------------INSURANCE QUOTE CALCULATIONS---------------------------------------------------
 
 
+ // Figures out which form has been selected and then calls the correct calculation function
 
-
-
-// INSURANCE QUOTE CALCULATION FUNCTIONS
-
-/**
- * Main quote calculation function
- */
 function calculateQuoteType(insuranceType) {
     let result = {};
     
@@ -471,6 +443,7 @@ function calculateAutoPremium() {
     const drivingRecord = document.getElementById('drivingRecord').value;
     const coverageLevel = document.querySelector('input[name="autoCoverageLevel"]:checked').value;
     
+    
     // Age multiplier
     let ageFactor = 1.0;
     let ageDescription = "Standard rate";
@@ -502,22 +475,27 @@ function calculateAutoPremium() {
         case 'under5000':
             mileageFactor = 0.8;
             mileageDescription = "Low mileage discount";
+            mileText = 'Under 5,000';
             break;
         case '5000-10000':
             mileageFactor = 1.0;
             mileageDescription = "Standard mileage";
+            mileText = "5,000-10,000";
             break;
         case '10,001-15000':
             mileageFactor = 1.1;
             mileageDescription = "Moderate mileage surcharge";
+            mileText = "10,001-15,000";
             break;
         case '15001-20000':
             mileageFactor = 1.3;
             mileageDescription = "High mileage surcharge";
+            mileText = "15,001-20,000";
             break;
         case 'over20000':
             mileageFactor = 1.5;
             mileageDescription = "Very high mileage surcharge";
+            mileText = "Over 20,000";
             break;
     }
     
@@ -525,31 +503,42 @@ function calculateAutoPremium() {
     let recordMultiplier = 1.0;
     let recordDescription = "Clean record";
     switch(drivingRecord) {
+        case 'clean':
+            recordMultiplier = 1.0;
+            recordDescription = "Clean Record";
+            ticketText = "Clean";
+            break;
+
         case '1ticket':
             recordMultiplier = 1.2;
             recordDescription = "One traffic ticket";
+            ticketText = "1 Ticket";
             break;
         case '2+tickets':
             recordMultiplier = 1.5;
             recordDescription = "Multiple traffic tickets";
+
             break;
         case 'accident':
             recordMultiplier = 1.8;
-            recordDescription = "Recent accident";
+            recordDescription = "Recent accident penalty ";
             break;
     }
     
     // Coverage level multiplier
     let coverageMultiplier = 1.0;
     let coverageDescription = "Standard coverage";
+    let coverageText = "Plan Choice: Standard";
     switch(coverageLevel) {
         case 'basic':
             coverageMultiplier = 0.8;
             coverageDescription = "Basic coverage discount";
+            coverageText = "Plan Choice: Basic";
             break;
         case 'premium':
             coverageMultiplier = 1.4;
             coverageDescription = "Premium coverage surcharge";
+            coverageText = "Plan: Choice: Premium";
             break;
     }
     
@@ -557,33 +546,19 @@ function calculateAutoPremium() {
     const monthlyPremium = baseRate * ageFactor * vehicleAgeFactor * 
         mileageFactor * recordMultiplier * coverageMultiplier;
     
-    // Create breakdown array
+    // Create array from user input for the breakdown table summary
     const breakdown = [
         { factor: "Base Rate", userInput: "$75/month", impact: "$Starting rate" },
 
-        { factor: "Age", userInput: `${age} years`,
-            impact: ageFactor === 1.0 ? "No change" : `${(ageFactor * 100 - 100).toFixed(0)}% 
-            ${ageFactor > 1 ? 'increase' : 'decrease'}` },
+        { factor: "Age", userInput: `${age} years`, impact: `${ageDescription}(x${ageFactor})` },
 
-        { factor: "Vehicle Age", userInput: `${vehicleYear} (${vehicleAge} years old)`, 
-            impact: vehicleAgeFactor === 1.0 ? "No change" : `${(vehicleAgeFactor * 100 - 100).toFixed(0)}% 
-            ${vehicleAgeFactor > 1 ? 'increase' : 'decrease'}` },
+        { factor: "Vehicle Age", userInput: `${vehicleYear} (${vehicleAge} years old)`, impact: `${vehicleAgeDescription} (x${vehicleAgeFactor})`},
 
-        { factor: "Annual Mileage", userInput: annualMileage.replace(/(\d)/g, '$1,').replace('under5000', 'Under 5,000')
-            .replace('5000-10000', '5,000-10,000').replace('10,001-15000', '10,001-15,000')
-            .replace('15001-20000', '15,001-20,000').replace('over20000', 'Over 20,000'), 
-            impact: mileageFactor === 1.0 ? "No change" : `${(mileageFactor * 100 - 100).toFixed(0)}% 
-            ${mileageFactor > 1 ? 'increase' : 'decrease'}` },
+        { factor: "Annual Mileage", userInput: `${mileText}` , impact: `${mileageDescription} (x${mileageFactor})` },
 
-        { factor: "Driving Record", userInput: drivingRecord.charAt(0).toUpperCase() 
-            + drivingRecord.slice(1).replace('1ticket', '1 Ticket').replace('2+tickets', '2+ Tickets')
-            .replace('accident', 'Accident'), impact: recordMultiplier === 1.0 ? "No change" : 
-            `${(recordMultiplier * 100 - 100).toFixed(0)}% increase` },
+        { factor: "Driving Record", userInput: `${ticketText}` , impact: `${recordDescription} (x${recordMultiplier})` },
 
-        { factor: "Coverage Level", userInput: coverageLevel.charAt(0).toUpperCase() 
-            + coverageLevel.slice(1), impact: coverageMultiplier === 1.0 ? "No change" : 
-            `${Math.abs(coverageMultiplier * 100 - 100).toFixed(0)}% ${coverageMultiplier > 1 ? 
-            'increase' : 'decrease'}` }
+        { factor: "Coverage Level", userInput: `${coverageText}`, impact: `${coverageDescription} (x${coverageMultiplier})` }
     ];
     
     return {
@@ -627,7 +602,7 @@ function calculateHomePremium() {
     
     // Size Factor
     let sizeFactor = (homeValue * 0.01) / 12;
-    let sizeDescription = "Per square foot: + $0.01/month"
+    let sizeDescription = "Per square foot"
 
     
     // Construction Factor
@@ -637,18 +612,22 @@ function calculateHomePremium() {
         case 'wood':
             constructionFactor = 1.2;
             constructionDescription = "Wood frame (higher fire risk)";
+            constructText = "Wood";
             break;
         case 'brick':
             constructionFactor = 1.0;
             constructionDescription = "Brick construction (lower risk)";
+            constructText = "Brick";
             break;
         case 'concrete':
             constructionFactor = 0.9;
             constructionDescription = "Concrete construction (lowest risk)";
+            constructText = "Concrete";
             break;
         case 'steel':
             constructionFactor = 0.85;
             constructionDescription = "Steel construction (very low risk)";
+            constructText = "Steel";
             break;
     }
     
@@ -657,26 +636,32 @@ function calculateHomePremium() {
     let safetyDescription = "No impact";
     if (hasSprinkler && hasSecurity) {
         safetyDiscount = 0.874; // 12.6% total discount (8% + 5% - some overlap)
-        safetyDescription = "Sprinkler & security system";
+        safetyDescription = "Extra safe bonus";
+        safetyText = "Has sprinkler and security Systems";
     } else if (hasSprinkler) {
         safetyDiscount = 0.92;
         safetyDescription = "Fire sprinkler system";
+        safetyText = "Has fire sprinkler system";
     } else if (hasSecurity) {
         safetyDiscount = 0.95;
         safetyDescription = "Security system";
+        safetyText = "Has security system";
     }
     
     // Coverage level multiplier
     let coverageMultiplier = 1.0;
     let coverageDescription = "Standard coverage";
+    let coverageText = "Plan Choice: Standard";
     switch(coverageLevel) {
         case 'basic':
             coverageMultiplier = 0.8;
             coverageDescription = "Basic coverage discount";
+            coverageText = "Plan Choice: Basic";
             break;
         case 'premium':
             coverageMultiplier = 1.4;
             coverageDescription = "Premium coverage surcharge";
+            coverageText = "Plan Choice: Premium";
             break;
     }
     
@@ -686,29 +671,17 @@ function calculateHomePremium() {
     
     // Create breakdown array
     const breakdown = [
-        { factor: "Base Rate", userInput: `0.35% of $${homeValue.toLocaleString()}`, impact: `$${(baseRate).toFixed(2)}
-            /month` },
+        { factor: "Base Rate", userInput:`${homeValue}` , impact: "Based on Home Value: "`(x${baseRate})` },
 
-        { factor: "Home Age", userInput: `${yearBuilt} (${homeAge} years old)`, 
-            impact: builtFactor === 1.0 ? "No change" : `${Math.abs(builtFactor * 100 - 100).toFixed(0)}% 
-            ${builtFactor > 1 ? 'increase' : 'decrease'}` },
+        { factor: "Home Age", userInput: `${yearBuilt} (${homeAge} years old)`, impact: `${builtDescription} (x${builtFactor})` },
 
-        { factor: "Home Size", userInput: `${squareFootage.toLocaleString()} sq ft`, 
-            impact: sizeFactor === 1.0 ? "No change" : `${(sizeFactor * 100 - 100).toFixed(0)}% 
-            ${sizeFactor > 1 ? 'increase' : 'decrease'}` },
+        { factor: "Home Size", userInput: {squareFootage}, impact: "Based on SquareFootage: " `(x${baseRate})`},
 
-        { factor: "Construction Type", userInput: constructionType.charAt(0).toUpperCase() + 
-            constructionType.slice(1), impact: constructionFactor === 1.0 ? "No change" : 
-            `${Math.abs(constructionFactor * 100 - 100).toFixed(0)}% ${constructionFactor > 1 ? 
-                'increase' : 'decrease'}` },
+        { factor: "Construction Type", userInput: `${constructText}`, impact: `${constructionDescription} (x${constructionFactor})` },
 
-        { factor: "Safety Features", userInput: safetyDescription, impact: safetyDiscount === 1.0 ? 
-            "No change" : `${Math.abs((1 - safetyDiscount) * 100).toFixed(1)}% decrease` },
+        { factor: "Safety Features", userInput: `${safetyText}`, impact: `${safetyDescription} (x${safetyDiscount})`},
 
-        { factor: "Coverage Level", userInput: coverageLevel.charAt(0).toUpperCase() 
-            + coverageLevel.slice(1), impact: coverageMultiplier === 1.0 ? "No change" : 
-            `${Math.abs(coverageMultiplier * 100 - 100).toFixed(0)}% ${coverageMultiplier > 1 ? 
-                'increase' : 'decrease'}` }
+        { factor: "Coverage Level", userInput: `${coverageText}`, impact: `${coverageDescription} (x${coverageMultiplier})` }
     ];
     
     return {
@@ -758,6 +731,7 @@ function calculateLifePremium() {
         case 'male':
             genderFactor = 1.1;
             genderDescription = "Male";
+            genderText = "Male"
             break;
         case 'female':
             genderFactor = 1.0;
@@ -772,9 +746,11 @@ function calculateLifePremium() {
     // Smoking multiplier
     let smokingMultiplier = 1.0;
     let smokingDescription = "Non-smoker";
+    let smokeFeed = "";
     if (isSmoker) {
         smokingMultiplier = 2.0;
         smokingDescription = "Smoker";
+        smokeFeed = "Smoker Penalty";
     }
     
     // Exercise frequency
@@ -784,40 +760,49 @@ function calculateLifePremium() {
         case 'rarely':
             exerciseMultiplier = 1.3;
             exerciseDescription = "Sedentary lifestyle surcharge";
+            exerText = "Rarely";
             break;
         case '1-2times':
             exerciseMultiplier = 1.2;
             exerciseDescription = "Light exercise";
+            exerText = "1 - 2 times a week";
             break;
         case '3-4times':
             exerciseMultiplier = 1.0;
             exerciseDescription = "Standard activity level";
+            exerText = "3 - 4 times a week";
             break;
         case '5times':
             exerciseMultiplier = 0.9;
             exerciseDescription = "Active lifestyle discount";
+            exerText = "5+ times a week";
             break;
     }
     
     // Pre-existing conditions multiplier
     let healthMultiplier = 1.0;
     let healthDescription = "No pre-existing conditions";
+    let healthAnswer = "No";
     if (hasPreExisting) {
         healthMultiplier = 1.5;
         healthDescription = "Pre-existing conditions surcharge";
+        healthAnswer = "Yes";
     }
     
     // Coverage level multiplier
     let coverageMultiplier = 1.0;
     let coverageDescription = "Standard coverage";
+    let coverageText = "Plan Choice: Standard";
     switch(coverageLevel) {
         case 'basic':
             coverageMultiplier = 0.8;
             coverageDescription = "Basic coverage discount";
+            coverageText = "Plan Choice: Basic";
             break;
         case 'premium':
             coverageMultiplier = 1.4;
             coverageDescription = "Premium coverage surcharge";
+            coverageText = "Plan Choice: Premium";
             break;
     }
     
@@ -827,35 +812,19 @@ function calculateLifePremium() {
     
     // Create breakdown array
     const breakdown = [
-        { factor: "Base Rate", userInput: `$${baseRatePerThousand}/month per $1,000`, impact: 
-            `$${(baseMonthlyRate).toFixed(2)}/month` },
+        { factor: "Base Rate (set by coverage amount)", userInput: `${coverageAmount}`, impact: "Base Monthly Rate:" `(x${baseMonthlyRate})` },
 
-        { factor: "Coverage Amount", userInput: `$${coverageAmount.toLocaleString()}`, 
-            impact: "Sets base premium" },
+        { factor: "Age", userInput: `${age} years`, impact: `${ageDescription}(x${ageFactor})` },
 
-        { factor: "Age", userInput: `${age} years`, impact: ageFactor === 1.0 ? 
-            "No change" : `${Math.abs(ageFactor * 100 - 100).toFixed(0)}% ${ageFactor > 1 ? 
-            'increase' : 'decrease'}` },
+        { factor: "Gender", userInput: `${genderText}`, impact: `(${genderFactor})`},
 
-        { factor: "Gender", userInput: gender.charAt(0).toUpperCase() + gender.slice(1), 
-            impact: genderFactor === 1.0 ? "No change" : `${Math.abs(genderFactor * 100 - 100).toFixed(0)}% 
-            ${genderFactor > 1 ? 'increase' : 'decrease'}` },
+        { factor: "Smoking Status", userInput: `${smokingDescription}`, impact: `${smokeFeed} (x${smokingMultiplier})`},
 
-        { factor: "Smoking Status", userInput: isSmoker ? "Smoker" : "Non-smoker", 
-            impact: smokingMultiplier === 1.0 ? "No change" : `${(smokingMultiplier * 100 - 100).toFixed(0)}
-            % increase` },
+        { factor: "Exercise Frequency", userInput: `${exerText}`, impact: `${exerciseDescription} (x${exerciseMultiplier})`},
 
-        { factor: "Exercise Frequency", userInput: exercise.replace('1-2times', '1-2 times/week')
-            .replace('3-4times', '3-4 times/week').replace('5times', '5+ times/week').replace('rarely', 'Rarely'), 
-            impact: exerciseMultiplier === 1.0 ? "No change" : `${Math.abs(exerciseMultiplier * 100 - 100).toFixed(0)}% 
-            ${exerciseMultiplier > 1 ? 'increase' : 'decrease'}` },
+        { factor: "Health History", userInput: `${healthAnswer}`, impact: `${healthDescription} (x${healthMultiplier})`},
 
-        { factor: "Health History", userInput: hasPreExisting ? "Pre-existing conditions" : "No pre-existing conditions", 
-            impact: healthMultiplier === 1.0 ? "No change" : `${(healthMultiplier * 100 - 100).toFixed(0)}% increase` },
-
-        { factor: "Coverage Level", userInput: coverageLevel.charAt(0).toUpperCase() + coverageLevel.slice(1), 
-            impact: coverageMultiplier === 1.0 ? "No change" : `${Math.abs(coverageMultiplier * 100 - 100).toFixed(0)}% 
-            ${coverageMultiplier > 1 ? 'increase' : 'decrease'}` }
+        { factor: "Coverage Level", userInput: `${coverageText}`, impact: `${coverageDescription} (x${coverageMultiplier})` }
     ];
     
     return {
@@ -866,6 +835,7 @@ function calculateLifePremium() {
 }
 
 function displayQuote(result, insuranceType) {
+    premiumSummary.classList.remove('hidden');
     console.log('Displaying quote:', result, insuranceType);
     // Get user name based on insurance type
     let userName = '';
@@ -882,7 +852,7 @@ function displayQuote(result, insuranceType) {
     }
 
     const displayBox = document.getElementById('displayBox');
-    displayBox.innerHTML = `
+    displayBox.textContent = `
         <h3>${userName || 'Customer'}</h3>
         <p>Estimated Monthly Premium: $${result.monthlyPremium}</p>
         <p>Estimated Annual Premium: $${result.annualPremium}</p>
@@ -895,7 +865,7 @@ function displayQuote(result, insuranceType) {
     if (result.breakdown && result.breakdown.length > 0) {
         result.breakdown.forEach(item => {
             const row = document.createElement('tr');
-            row.innerHTML = `
+            row.textContentL = `
                 <td>${item.factor}</td>
                 <td>${item.userInput}</td>
                 <td>${item.impact}</td>
