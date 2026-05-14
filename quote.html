@@ -10,8 +10,8 @@
         crossorigin="anonymous">
 
     <link href="css/styles.css" rel="stylesheet">
-    <script defer src="/js/quote.js"></script>
-    
+    <script defer src="js/quote.js"></script>
+
 </head>
 <body class="quote">
     <header>
@@ -76,7 +76,8 @@
                         </div>
                     </div>
                 </div>
-
+                </form>
+                <form id="autoQuoteForm">
                 <!--Auto-Form-->
                     <div id="autoForm" class="insurance-form hidden">
                         <div id="validationSummary" class="validation-summary hidden" role="alert"></div>
@@ -86,17 +87,17 @@
                             <!--Full Name-->
                             <div class="mb-3 col-md-6">
                                 <label for="autoFullName" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="autoFullName" name="fullname" required>
+                                <input type="text" class="form-control" id="autoFullName" name="autoFullname" required>
                             </div>
                             <!--Age-->
                             <div class="mb-3 col-md-6">
                                 <label for="autoAge" class="form-label">Age</label>
-                                <input type="number" class="form-control" id="autoAge" min="16" max="100" name="age" required>
+                                <input type="number" class="form-control" id="autoAge" min="16" max="100" name="autoAge" required>
                             </div>
                             <!--ZIP Code-->
                             <div class="mb-3 col-md-4">
                                 <label for="autoZipCode" class="form-label">ZIP Code</label>
-                                <input type="text" class="form-control" id="autoZipCode" name="zipcode" required>
+                                <input type="text" class="form-control" id="autoZipCode" name="autoZipCode" required>
                             </div>
                             <!--Vehicle Make-->
                             <div class="mb-3 col-md-8">
@@ -157,7 +158,8 @@
                             <button type="submit" onclick="" class="btn btn-warning col-3">Get Quote</button>
                         </div>
                     </div>
-
+                </form>
+                <form id="homeQuoteForm">
                 <!--Home-Form-->
                 <div id="homeForm" class="insurance-form hidden">
                     <div id="validationSummary" class="validation-summary hidden" role="alert"></div>
@@ -225,8 +227,8 @@
                     </div>
                     <button type="submit" class="btn btn-warning col-3">Get Quote</button>
                 </div>
-
-
+                </form>
+                <form id="lifeQuoteForm">
                 <!--Life-Form-->
                 <div id="lifeForm" class="insurance-form hidden">
                     <div id="validationSummary" class="validation-summary hidden" role="alert"></div>
@@ -301,30 +303,13 @@
                     </div>
                     <button type="submit" class="btn btn-warning col-3">Get Quote</button>
                 </div>
-                
-            </form>
+                </form>
         </section>
 
         <section id="premiumSummary">
             <div class="card summary-card">
                 <h5>Insurance Quote</h5>
-                <div class="card-body summary-body">
-                    <div>
-                        <h6>Name:</h6>
-                        <p id="displayUser">Placeholder</p>
-                    </div>
-                    <div>
-                        <h6>Type:</h6>
-                        <p id="displayType">Placeholder</p>
-                    </div>
-                    <div>
-                        <h6>Your Monthly Premium: </h6>
-                        <p id="displayMonthlyPremium">Placeholder</p>
-                    </div>
-                    <div>
-                        <h6>Your Annual Premium:</h6>
-                        <p id="displayAnnualPremium">Placeholder</p>
-                    </div>
+                <div id="displayBox" class="card-body summary-body">
                 </div>
             </div>
             <table class="table table-striped">
@@ -365,6 +350,5 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
     <script src="js/quote.js"></script>
-
 </body>
 </html>

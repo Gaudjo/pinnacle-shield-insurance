@@ -2,9 +2,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     const insuranceTypes = document.querySelectorAll('.insuranceType');
     const forms = {
-        auto: document.getElementById('autoForm'),
-        home: document.getElementById('homeForm'),
-        life: document.getElementById('lifeForm')
+        auto: document.getElementById('autoQuoteForm'),
+        home: document.getElementById('homeQuoteForm'),
+        life: document.getElementById('lifeQuoteForm')
     };
 
  //Figures out which card is selected and un-hides the corresponding form 
@@ -30,15 +30,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Add form submission handlers
-    const form = document.querySelector('form');
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const selectedType = document.querySelector('input[name="insuranceType"]:checked');
-        if (selectedType) {
-            if (validateForm(selectedType.value)) {
-                calculateQuote(selectedType.value);
-            }
+    // Add form submission handlers for each insurance type
+    const autoForm = document.getElementById('autoQuoteForm');
+    const homeForm = document.getElementById('homeQuoteForm');
+    const lifeForm = document.getElementById('lifeQuoteForm');
+
+    [autoForm, homeForm, lifeForm].forEach(formElement => {
+        if (formElement) {
+            formElement.addEventListener('submit', function(e) {
+                console.log('Form submitted:', formElement.id);
+                e.preventDefault();
+                const selectedType = document.querySelector('input[name="insuranceType"]:checked');
+                console.log('Selected type:', selectedType ? selectedType.value : 'none');
+                if (selectedType && selectedType.value === formElement.id.replace('QuoteForm', '')) {
+                    console.log('Validating form for:', selectedType.value);
+                    if (validateForm(selectedType.value)) {
+                        console.log('Form valid, calculating quote');
+                        calculateQuoteType(selectedType.value);
+                    } else {
+                        console.log('Form invalid');
+                    }
+                } else {
+                    console.log('Type mismatch or no type selected');
+                }
+            });
         }
     });
     
@@ -54,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-});
+
 
 
 const results = document.getElementById('results');
@@ -97,6 +112,8 @@ const fieldRules = {
 const autoSpecificFields = ['vehicleYear', 'vehicleMake', 'vehicleModel', 'annualMileage', 'drivingRecord'];
 const homeSpecificFields = ['homeValue', 'yearBuilt', 'squareFootage','constructionType', 'securitySys', 'sprinklerSys'];
 const lifeSpecificFields = ['gender', 'smoker', 'coverageAmount', 'exercise', 'preExist'];
+
+const commonFields = ['fullName', 'age', 'zipCode', 'coverageLevel'];
 
 // Map field names to their form control IDs
 const fieldNameToIds = {
@@ -221,9 +238,9 @@ function checkFieldValidity(field, rules) {
     return true;
 }
 
-/**
- * Get appropriate error message for a field
- */
+
+ // Get appropriate error message for a field
+ 
 function getErrorMessage(field, rules) {
     const value = field.value.trim();
     const label = rules.label || field.id;
@@ -339,9 +356,9 @@ function validateForm(insuranceType) {
         
         // Handle radio button groups specially
         if (fieldName === 'coverageLevel' || fieldName === 'smoker') {
-            const radioGroupName = fieldName === 'preExist' ? 'pre-exist' : fieldName;
+            const radioGroupName = fieldName === 'smoker' ? 'smoker' : insuranceType + 'CoverageLevel';
             if (!validateRadioGroup(radioGroupName)) {
-                errors.push(rules.label);
+                errors.push(rules.label + ' is required');
             }
         } else {
             // Map field name to actual ID
@@ -419,7 +436,7 @@ function displayValidationSummary(errors) {
 /**
  * Main quote calculation function
  */
-function calculateQuote(insuranceType) {
+function calculateQuoteType(insuranceType) {
     let result = {};
     
     switch(insuranceType) {
@@ -437,7 +454,7 @@ function calculateQuote(insuranceType) {
             return;
     }
     
-    displayQuote(result, insuranceType);
+    const quoteType = displayQuote(result, insuranceType);
 }
 
 /**
@@ -848,18 +865,44 @@ function calculateLifePremium() {
     };
 }
 
-document.querySelector(form).addEventListener('submit', (event) => {
-    document.getElementById("displayMonthlyPremium").value = monthlyPremium;
-    document.getElementById("displayAnnualPremium").textContent = annualPremium;
-    docuument.getElementById("displayName").textContent = fullName
-    document.getElementById("displayType").textContent = forms[type]
+function displayQuote(result, insuranceType) {
+    console.log('Displaying quote:', result, insuranceType);
+    // Get user name based on insurance type
+    let userName = '';
+    switch(insuranceType) {
+        case 'auto':
+            userName = document.getElementById('autoFullName').value.trim();
+            break;
+        case 'home':
+            userName = document.getElementById('homeFullName').value.trim();
+            break;
+        case 'life':
+            userName = document.getElementById('lifeFullName').value.trim();
+            break;
+    }
 
-    function addBreakdownRow(breakdown) {
-    var row = document.createElement('tr');
-    row.innerHTML =
-    '<td>' + factor + '</td>' +
-    '<td>' + userValue + '</td>' +
-    '<td>' + impact + '</td>';
-    tbody.appendChild(row);
-    };
+    const displayBox = document.getElementById('displayBox');
+    displayBox.innerHTML = `
+        <h3>${userName || 'Customer'}</h3>
+        <p>Estimated Monthly Premium: $${result.monthlyPremium}</p>
+        <p>Estimated Annual Premium: $${result.annualPremium}</p>
+    `;
+
+    // Populate the breakdown table
+    const tbody = document.querySelector('#premiumSummary tbody');
+    tbody.innerHTML = ''; // Clear existing rows
+
+    if (result.breakdown && result.breakdown.length > 0) {
+        result.breakdown.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${item.factor}</td>
+                <td>${item.userInput}</td>
+                <td>${item.impact}</td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+}
+
 });
