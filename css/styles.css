@@ -244,6 +244,25 @@ form .mb-3.error {
 }
 
 
+
+.quote .summary-card {
+    display: flex;
+    flex-wrap: no-wrap;
+    flex: 0 1 auto;
+    border: #0056b3 solid;
+    border-width: 5px;
+    width: 30rem;
+    height: auto; 
+}
+
+.quote .summary-card h5{
+    text-align: center;
+    padding: 10px;
+    background: #0056b3;
+    
+}
+
+
 /*--------ABOUT--------*/
 
 /*--------FAQ--------*/

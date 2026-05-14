@@ -848,3 +848,17 @@ function calculateLifePremium() {
         breakdown: breakdown
     };
 }
+
+document.getElementById("displayMonthlyPremium").textContent = monthlyPremium;
+document.getElementById("displayAnnualPremium").textContent = annualPremium;
+docuument.getElementById("displayName").textContent = fullName
+document.getElementById("displayType").textContent = forms[type]
+
+function addBreakdownRow(tbody, factor, userInput, impact) {
+var row = document.createElement('tr');
+row.innerHTML =
+'<td>' + factor + '</td>' +
+'<td>' + userValue + '</td>' +
+'<td>' + impact + '</td>';
+tbody.appendChild(row);
+}
