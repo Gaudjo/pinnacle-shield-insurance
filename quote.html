@@ -87,22 +87,22 @@
                             <!--Full Name-->
                             <div class="mb-3 col-md-6">
                                 <label for="autoFullName" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="autoFullName" name="autoFullname" required>
+                                <input type="text" class="form-control" id="autoFullName" name="autoFullname">
                             </div>
                             <!--Age-->
                             <div class="mb-3 col-md-6">
                                 <label for="autoAge" class="form-label">Age</label>
-                                <input type="number" class="form-control" id="autoAge" min="16" max="100" name="autoAge" required>
+                                <input type="number" class="form-control" id="autoAge" name="autoAge">
                             </div>
                             <!--ZIP Code-->
                             <div class="mb-3 col-md-4">
                                 <label for="autoZipCode" class="form-label">ZIP Code</label>
-                                <input type="text" class="form-control" id="autoZipCode" name="autoZipCode" required>
+                                <input type="text" class="form-control" id="autoZipCode" name="autoZipCode">
                             </div>
                             <!--Vehicle Make-->
                             <div class="mb-3 col-md-8">
                                 <label for="vehicleMake" class="form-label">Vehicle Make</label>
-                                <select class="form-control" id="vehicleMake" required>
+                                <select class="form-control" id="vehicleMake">
                                     <option value="">Vehicle Make</option>
                                     <option value="toyota">Toyota</option>
                                     <option value="honda">Honda</option>
@@ -115,17 +115,17 @@
                             <!--Vehicle Model-->
                             <div class="mb-3 col-12">
                                 <label for="vehicleModel" class="form-label">Vehicle Model</label>
-                                <input type="text" class="form-control" id="vehicleModel" required>
+                                <input type="text" class="form-control" id="vehicleModel">
                             </div>
                             <!--Vehicle Year-->
                             <div class="mb-3 col-md-6">
                                 <label for="vehicleYear" class="form-label">Vehicle Year</label>
-                                <input type="number" class="form-control" id="vehicleYear" min="1990" max="2026" required>
+                                <input type="number" class="form-control" id="vehicleYear">
                             </div>
                             <!--Annual Mileage-->
                             <div class="mb-3 col-md-6">
                                 <label for="annualMileage" class="form-label">Annual Mileage</label>
-                                <select class="form-control" id="annualMileage" required>
+                                <select class="form-control" id="annualMileage">
                                     <option value="">Annual Mileage</option>
                                     <option value="under5000">Under 5,000</option>
                                     <option value="5000-10000">5,000-10,000</option>
@@ -137,7 +137,7 @@
                             <!--Driving Record-->
                             <div class="mb-3 col-md-6">
                                 <label for="drivingRecord" class="form-label">Driving Record</label>
-                                <select class="form-control" id="drivingRecord" required>
+                                <select class="form-control" id="drivingRecord">
                                     <option value="">Driving Record</option>
                                     <option value="clean">Clean</option>
                                     <option value="1ticket">1 Ticket</option>
@@ -148,11 +148,11 @@
                             <!--Coverage Level-->
                             <div class="mb-3 col-md-6">
                                 <legend>Coverage Level</legend>
-                                <input type="radio" id="autoCoverageChoice1" name="autoCoverageLevel" value="basic" required>
+                                <input type="radio" id="autoCoverageChoice1" name="coverageLevel" value="basic">
                                 <label for="autocoveragechoice1">Basic</label>
-                                <input type="radio" id="autoCoverageChoice2" name="autoCoverageLevel" value="standard" required>
+                                <input type="radio" id="autoCoverageChoice2" name="coverageLevel" value="standard">
                                 <label for="autoCoverageChoice2">Standard</label>
-                                <input type="radio" id="autoCoverageChoice3" name="autoCoverageLevel" value="premium" required>
+                                <input type="radio" id="autoCoverageChoice3" name="coverageLevel" value="premium">
                                 <label for="autoCoverageChoice3">Premium</label>
                             </div>
                             <button type="submit" onclick="" class="btn btn-warning col-3">Get Quote</button>
@@ -167,37 +167,37 @@
                     <!--Full Name-->
                     <div class="mb-3">
                         <label for="homeFullName" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="homeFullName" name="fullname" minlength="2" maxlength="20" required>
+                        <input type="text" class="form-control" id="homeFullName" name="fullname">
                     </div>
                     <!--Age-->
                     <div class="mb-3 col-md-6">
                         <label for="homeAge" class="form-label">Age</label>
-                        <input type="number" class="form-control" id="homeAge" min="16" max="100" name="age" required>
+                        <input type="number" class="form-control" id="homeAge" name="age">
                     </div>
                     <!--ZIP Code-->
                     <div class="mb-3 col-md-4">
                         <label for="homeZipCode" class="form-label">ZIP Code</label>
-                        <input type="text" class="form-control" id="homeZipCode" name="zipcode" required>
+                        <input type="text" class="form-control" id="homeZipCode" name="zipcode">
                     </div>
                     <!--Home Value-->
                     <div class="mb-3">
                         <label for="homeValue" class="form-label">Home Value</label>
-                        <input type="number" class="form-control" id="homeValue" min="50000" required>
+                        <input type="number" class="form-control" id="homeValue">
                     </div>
                     <!--Year Built-->
                     <div class="mb-3">
                         <label for="yearBuilt" class="form-label">Year Built</label>
-                        <input type="number" class="form-control" id="yearBuilt" min="1900" max="2026" required>
+                        <input type="number" class="form-control" id="yearBuilt">
                     </div>
                     <!--Square Footage-->
                     <div class="mb-3">
                         <label for="squareFootage" class="form-label">Square Footage</label>
-                        <input type="number" class="form-control" id="squareFootage" min="500" max="10000" required>
+                        <input type="number" class="form-control" id="squareFootage">
                     </div>
                     <!--Construction Type-->
                     <div class="mb-3">
                         <label for="constructionType" class="form-label">Construction Type</label>
-                        <select class="form-control" id="constructionType" required>
+                        <select class="form-control" id="constructionType">
                             <option value="">Construction Type</option>
                             <option value="wood">Wood Frame</option>
                             <option value="brick">Brick</option>
@@ -208,11 +208,11 @@
                     <!--Coverage Level-->
                     <div class="mb-3 col-md-6">
                         <legend>Coverage Level</legend>
-                        <input type="radio" id="homeCoverageChoice1" name="homeCoverageLevel" value="basic" required>
+                        <input type="radio" id="homeCoverageChoice1" name="coverageLevel" value="basic">
                         <label for="homeCoverageChoice1">Basic</label>
-                        <input type="radio" id="homeCoverageChoice2" name="homeCoverageLevel" value="standard" required>
+                        <input type="radio" id="homeCoverageChoice2" name="coverageLevel" value="standard">
                         <label for="homeCoverageChoice2">Standard</label>
-                        <input type="radio" id="homeCoverageChoice3" name="homeCoverageLevel" value="premium" required>
+                        <input type="radio" id="homeCoverageChoice3" name="coverageLevel" value="premium">
                         <label for="homeCoverageChoice3">Premium</label>
                     </div>
                     <!--Does User Have A Sprinkler System?-->
@@ -236,22 +236,23 @@
                     <!--Full Name-->
                     <div class="mb-3">
                         <label for="lifeFullName" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="lifeFullName" name="fullname" minlength="2" maxlength="20" required>
+                        <input type="text" class="form-control" id="lifeFullName" name="fullname">
                     </div>
                     <!--Age-->
                     <div class="mb-3">
                         <label for="lifeAge" class="form-label">Age</label>
-                        <input type="number" class="form-control" id="lifeAge" min="18" max="85" name="age" required>
+                        <input type="number" class="form-control" id="lifeAge">
                     </div>
                     <!--ZIP Code-->
                     <div class="mb-3">
                         <label for="lifeZipCode" class="form-label">ZIP Code</label>
-                        <input type="text" class="form-control" id="lifeZipCode" name="zipcode" required>
+                        <input type="text" class="form-control" id="lifeZipCode" name="zipcode">
                     </div>
                     <!--Gender-->
                     <div class="mb-3">
                         <label for="gender" class="form-label">Gender</label>
-                        <select class="form-control" id="gender" required>
+                        <select class="form-control" id="gender">
+                            <option value="">Gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                             <option value="nonbinary">Non-Binary</option>
@@ -260,15 +261,15 @@
                     <!--Is Customer a Smoker?-->
                     <div class="mb-3">
                         <legend>Smoker</legend>
-                        <input type="radio" id="smokerchoice1" name="smoker" value="yes" required>
+                        <input type="radio" id="smokerchoice1" name="smoker" value="yes">
                         <label for="smokerchoice1">Yes</label>
-                        <input type="radio" id="smokerchoice2" name="smoker" value="no" required>
+                        <input type="radio" id="smokerchoice2" name="smoker" value="no">
                         <label for="smokerchoice2">No</label>
                     </div>
                     <!--Coverage Amount-->
                     <div class="mb-3">
                         <label for="coverageAmount" class="form-label">Coverage Amount</label>
-                        <select class="form-control" id="coverageAmount" required>
+                        <select class="form-control" id="coverageAmount">
                             <option value="100000">$100,000</option>
                             <option value="250000">$250,000</option>
                             <option value="500000">$500,000</option>
@@ -278,7 +279,8 @@
                     <!--Exercise Frequency-->
                     <div class="mb-3">
                         <label for="exercise" class="form-label">Exercise</label>
-                        <select class="form-control" id="exercise" required>
+                        <select class="form-control" id="exercise">
+                            <option value="">Excerise Frequency</option>
                             <option value="rarely">Rarely</option>
                             <option value="1-2times">1-2 Times a Week</option>
                             <option value="3-4times">3-4 Times a Week</option>
@@ -294,11 +296,11 @@
                     <!--Coverage Level-->
                     <div class="mb-3">
                         <legend>Coverage Level</legend>
-                        <input type="radio" id="lifeCoverageChoice1" name="lifeCoverageLevel" value="basic" required>
+                        <input type="radio" id="lifeCoverageChoice1" name="coverageLevel" value="basic">
                         <label for="lifeCoverageChoice1">Basic</label>
-                        <input type="radio" id="lifeCoverageChoice2" name="lifeCoverageLevel" value="standard" required>
+                        <input type="radio" id="lifeCoverageChoice2" name="coverageLevel" value="standard">
                         <label for="lifeCoverageChoice2">Standard</label>
-                        <input type="radio" id="lifeCoverageChoice3" name="lifeCoverageLevel" value="premium" required>
+                        <input type="radio" id="lifeCoverageChoice3" name="coverageLevel" value="premium">
                         <label for="lifeCoverageChoice3">Premium</label>
                     </div>
                     <button type="submit" class="btn btn-warning col-3">Get Quote</button>

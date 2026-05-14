@@ -87,9 +87,15 @@ const planMultipliers = {
 
 //Form Field Validation
 const fieldRules = {
-    fullName: {label: 'Full Name', required: true, minLength: 2, maxLength: 35, pattern: /^[a-zA-Z .'-]+$/},
-    age: {label: 'Age', required: true, min: 16, max: 100 },
-    zipCode: {label: 'ZIP Code', required: true, pattern: /^\d{5}$/ },
+    autoFullName: {label: 'Full Name', required: true, minLength: 2, maxLength: 35, pattern: /^[a-zA-Z .'-]+$/},
+    homeFullName: {label: 'Full Name', required: true, minLength: 2, maxLength: 35, pattern: /^[a-zA-Z .'-]+$/},
+    lifeFullName: {label: 'Full Name', required: true, minLength: 2, maxLength: 35, pattern: /^[a-zA-Z .'-]+$/},
+    autoAge: {label: 'Age', required: true, min: 16, max: 100 },
+    homeAge: {label: 'Age', required: true, min: 16, max: 100 },
+    lifeAge: {label: 'Age', required: true, min: 16, max: 100 },
+    autoZipCode: {label: 'ZIP Code', required: true, pattern: /^\d{5}$/ },
+    homeZipCode: {label: 'ZIP Code', required: true, pattern: /^\d{5}$/ },
+    lifeZipCode: {label: 'ZIP Code', required: true, pattern: /^\d{5}$/ },
     vehicleYear: {label: 'Vehicle Year', required: true, min: 1990, max: 2026},
     vehicleMake: {label: 'Vehicle Make', required: true},
     vehicleModel: {label: 'Vehicle Model', required: true, minLength: 1, pattern: /^[a-zA-Z0-9 .'-]+$/},
@@ -109,18 +115,24 @@ const fieldRules = {
     preExist: {label: 'Pre-existing Conditions', required: false}
 };
 
-const autoSpecificFields = ['vehicleYear', 'vehicleMake', 'vehicleModel', 'annualMileage', 'drivingRecord'];
-const homeSpecificFields = ['homeValue', 'yearBuilt', 'squareFootage','constructionType', 'securitySys', 'sprinklerSys'];
-const lifeSpecificFields = ['gender', 'smoker', 'coverageAmount', 'exercise', 'preExist'];
+const autoSpecificFields = ['autoFullName','autoAge','autoZipCode','vehicleYear', 'vehicleMake', 'vehicleModel', 'annualMileage', 'drivingRecord', 'autoCoverLevel'];
+const homeSpecificFields = ['homeFullName','homeAge','homeZipCode','homeValue', 'yearBuilt', 'squareFootage','constructionType', 'securitySys', 'sprinklerSys', 'homeCoverageLevel'];
+const lifeSpecificFields = ['lifeFullName','lifeAge','lifeZipCode','gender', 'smoker', 'coverageAmount', 'exercise', 'preExist', 'lifeCoverageLevel'];
 
-const commonFields = ['fullName', 'age', 'zipCode', 'coverageLevel'];
+//const commdonFields = ['fullName', 'age', 'zipCode', 'coverageLevel'];
 
 // Map field names to their form control IDs
 const fieldNameToIds = {
-    fullName: 'autoFullName homeFullName lifeFullName',
-    age: 'autoAge homeAge lifeAge',
-    zipCode: 'autoZipCode homeZipCode lifeZipCode',
-    coverageLevel: 'autoCoverageLevel homeCoverageLevel lifeCoverageLevel', // This is a radio button group
+    autoFullName: 'autoFullName',
+    homeFullName: 'homeFullName',
+    lifeFullName: 'lifeFullName',
+    autoAge: 'autoAge', 
+    homeAge: 'homeAge',
+    lifeAge: 'lifeAge',
+    autoZipCode: 'autoZipCode',
+    homeZipCode: 'homeZipCode',
+    lifeZipCode: 'lifeZipCode',
+    coverageLevel: 'coverageLevel',
     vehicleYear: 'vehicleYear',
     vehicleMake: 'vehicleMake',
     vehicleModel: 'vehicleModel',
@@ -258,7 +270,13 @@ function getErrorMessage(field, rules) {
     }
     
     if (rules.pattern && value && !rules.pattern.test(value)) {
-        if (field.id === 'autoZipCode' | 'homeZipCode' | 'lifeZipCode') {
+        if (field.id === 'autoZipCode') {
+            return `${label} must be a valid 5-digit ZIP code`;
+        }
+        if (field.id === 'homeZipCode') {
+            return `${label} must be a valid 5-digit ZIP code`;
+        }
+        if (field.id === 'lifeZipCode') {
             return `${label} must be a valid 5-digit ZIP code`;
         }
         return `${label} contains invalid characters`;
@@ -300,9 +318,9 @@ function setFieldError(field, errorMessage) {
     field.parentElement.appendChild(errorDiv);
 }
 
-/**
- * Clear error state from a field
- */
+
+ // Clear error state from a field
+ 
 function clearFieldError(field) {
     field.classList.remove('error');
     
@@ -313,9 +331,8 @@ function clearFieldError(field) {
     }
 }
 
-/**
- * Clear all validation errors from the form
- */
+// Clear all validation errors from the form
+
 function clearAllErrors() {
     // Clear regular field errors
     const errorFields = document.querySelectorAll('.form-control.error, select.error');
@@ -386,7 +403,7 @@ function validateForm(insuranceType) {
 
 // Get list of fields to validate based on insurance type
 function getFieldsForType(insuranceType) {
-    let fields = [...commonFields];
+    let fields = [];
     
     switch(insuranceType) {
         case 'auto':
@@ -634,6 +651,7 @@ function calculateHomePremium() {
     // Safety features discounts
     let safetyDiscount = 1.0;
     let safetyDescription = "No impact";
+    let safetyText = "No safety features";
     if (hasSprinkler && hasSecurity) {
         safetyDiscount = 0.874; // 12.6% total discount (8% + 5% - some overlap)
         safetyDescription = "Extra safe bonus";
@@ -671,15 +689,15 @@ function calculateHomePremium() {
     
     // Create breakdown array
     const breakdown = [
-        { factor: "Base Rate", userInput:`${homeValue}` , impact: "Based on Home Value: "`(x${baseRate})` },
+        { factor: "Base Rate", userInput:`${homeValue}` , impact: `Based on Home Value: (x${baseRate})` },
 
         { factor: "Home Age", userInput: `${yearBuilt} (${homeAge} years old)`, impact: `${builtDescription} (x${builtFactor})` },
 
-        { factor: "Home Size", userInput: {squareFootage}, impact: "Based on SquareFootage: " `(x${baseRate})`},
+        { factor: "Home Size", userInput: `${squareFootage}`, impact: `Based on SquareFootage: (x${baseRate})`},
 
         { factor: "Construction Type", userInput: `${constructText}`, impact: `${constructionDescription} (x${constructionFactor})` },
 
-        { factor: "Safety Features", userInput: `${safetyText}`, impact: `${safetyDescription} (x${safetyDiscount})`},
+        { factor: "Safety Features", userInput: `${safetyText}` , impact: `${safetyDescription} (x${safetyDiscount})`},
 
         { factor: "Coverage Level", userInput: `${coverageText}`, impact: `${coverageDescription} (x${coverageMultiplier})` }
     ];
@@ -705,7 +723,8 @@ function calculateLifePremium() {
     const coverageLevel = document.querySelector('input[name="lifeCoverageLevel"]:checked').value;
     
     // Base rate (monthly)
-    const baseMonthlyRate = (coverageAmount * 0.0005) / 12
+    let baseMonthlyRate = (coverageAmount * 0.0005) / 12
+    baseMonthlyRate: Math.round(baseMonthlyRate)
     
     // Age Factor
     let ageFactor = 1.0;
@@ -812,9 +831,9 @@ function calculateLifePremium() {
     
     // Create breakdown array
     const breakdown = [
-        { factor: "Base Rate (set by coverage amount)", userInput: `${coverageAmount}`, impact: "Base Monthly Rate:" `(x${baseMonthlyRate})` },
+        { factor: "Base Rate (set by coverage amount)", userInput: `${coverageAmount}`, impact: `Base Monthly Rate: (x${baseMonthlyRate})`},
 
-        { factor: "Age", userInput: `${age} years`, impact: `${ageDescription}(x${ageFactor})` },
+        { factor: "Age", userInput: `${age} years`, impact: `${ageDescription} (x${ageFactor})` },
 
         { factor: "Gender", userInput: `${genderText}`, impact: `(${genderFactor})`},
 
@@ -824,7 +843,7 @@ function calculateLifePremium() {
 
         { factor: "Health History", userInput: `${healthAnswer}`, impact: `${healthDescription} (x${healthMultiplier})`},
 
-        { factor: "Coverage Level", userInput: `${coverageText}`, impact: `${coverageDescription} (x${coverageMultiplier})` }
+        { factor: "Coverage Level", userInput: `${coverageText}`, impact: `${coverageDescription} (x${coverageMultiplier})`}
     ];
     
     return {
@@ -852,7 +871,7 @@ function displayQuote(result, insuranceType) {
     }
 
     const displayBox = document.getElementById('displayBox');
-    displayBox.textContent = `
+    displayBox.innerHTML = `
         <h3>${userName || 'Customer'}</h3>
         <p>Estimated Monthly Premium: $${result.monthlyPremium}</p>
         <p>Estimated Annual Premium: $${result.annualPremium}</p>
@@ -865,7 +884,7 @@ function displayQuote(result, insuranceType) {
     if (result.breakdown && result.breakdown.length > 0) {
         result.breakdown.forEach(item => {
             const row = document.createElement('tr');
-            row.textContentL = `
+            row.innerHTML = `
                 <td>${item.factor}</td>
                 <td>${item.userInput}</td>
                 <td>${item.impact}</td>
