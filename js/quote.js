@@ -94,17 +94,16 @@ const fieldRules = {
     preExist: {label: 'Pre-existing Conditions', required: false}
 };
 
-const commonFields = ['fullName', 'age', 'zipCode', 'coverageLevel'];
 const autoSpecificFields = ['vehicleYear', 'vehicleMake', 'vehicleModel', 'annualMileage', 'drivingRecord'];
 const homeSpecificFields = ['homeValue', 'yearBuilt', 'squareFootage','constructionType', 'securitySys', 'sprinklerSys'];
 const lifeSpecificFields = ['gender', 'smoker', 'coverageAmount', 'exercise', 'preExist'];
 
 // Map field names to their form control IDs
 const fieldNameToIds = {
-    fullName: 'fullName',
-    age: 'age',
-    zipCode: 'zipCode',
-    coverageLevel: 'coverageLevel', // This is a radio button group
+    fullName: 'autoFullName homeFullName lifeFullName',
+    age: 'autoAge homeAge lifeAge',
+    zipCode: 'autoZipCode homeZipCode lifeZipCode',
+    coverageLevel: 'autoCoverageLevel homeCoverageLevel lifeCoverageLevel', // This is a radio button group
     vehicleYear: 'vehicleYear',
     vehicleMake: 'vehicleMake',
     vehicleModel: 'vehicleModel',
@@ -449,11 +448,11 @@ function calculateAutoPremium() {
     let baseRate = 75; // Monthly base rate
     
     // Get form values
-    const age = parseInt(document.getElementById('age').value);
+    const age = parseInt(document.getElementById('autoAge').value);
     const vehicleYear = parseInt(document.getElementById('vehicleYear').value);
     const annualMileage = document.getElementById('annualMileage').value;
     const drivingRecord = document.getElementById('drivingRecord').value;
-    const coverageLevel = document.querySelector('input[name="coverageLevel"]:checked').value;
+    const coverageLevel = document.querySelector('input[name="autoCoverageLevel"]:checked').value;
     
     // Age multiplier
     let ageFactor = 1.0;
@@ -588,7 +587,7 @@ function calculateHomePremium() {
     const constructionType = document.getElementById('constructionType').value;
     const hasSprinkler = document.getElementById('sprinklerSys').checked;
     const hasSecurity = document.getElementById('securitySys').checked;
-    const coverageLevel = document.querySelector('input[name="coverageLevel"]:checked').value;
+    const coverageLevel = document.querySelector('input[name="homeCoverageLevel"]:checked').value;
     
     // Base rate (monthly)
     const baseRate = (homeValue * 0.003) / 12;
@@ -707,13 +706,13 @@ function calculateHomePremium() {
  */
 function calculateLifePremium() {
     // Get form values
-    const age = parseInt(document.getElementById('age').value);
+    const age = parseInt(document.getElementById('lifeAge').value);
     const gender = document.getElementById('gender').value;
     const isSmoker = document.querySelector('input[name="smoker"]:checked').value === 'yes';
     const coverageAmount = parseInt(document.getElementById('coverageAmount').value);
     const exercise = document.getElementById('exercise').value;
     const hasPreExisting = document.getElementById('pre-exist').checked;
-    const coverageLevel = document.querySelector('input[name="coverageLevel"]:checked').value;
+    const coverageLevel = document.querySelector('input[name="lifeCoverageLevel"]:checked').value;
     
     // Base rate (monthly)
     const baseMonthlyRate = (coverageAmount * 0.0005) / 12
@@ -849,16 +848,18 @@ function calculateLifePremium() {
     };
 }
 
-document.getElementById("displayMonthlyPremium").textContent = monthlyPremium;
-document.getElementById("displayAnnualPremium").textContent = annualPremium;
-docuument.getElementById("displayName").textContent = fullName
-document.getElementById("displayType").textContent = forms[type]
+document.querySelector(form).addEventListener('submit', (event) => {
+    document.getElementById("displayMonthlyPremium").value = monthlyPremium;
+    document.getElementById("displayAnnualPremium").textContent = annualPremium;
+    docuument.getElementById("displayName").textContent = fullName
+    document.getElementById("displayType").textContent = forms[type]
 
-function addBreakdownRow(tbody, factor, userInput, impact) {
-var row = document.createElement('tr');
-row.innerHTML =
-'<td>' + factor + '</td>' +
-'<td>' + userValue + '</td>' +
-'<td>' + impact + '</td>';
-tbody.appendChild(row);
-}
+    function addBreakdownRow(breakdown) {
+    var row = document.createElement('tr');
+    row.innerHTML =
+    '<td>' + factor + '</td>' +
+    '<td>' + userValue + '</td>' +
+    '<td>' + impact + '</td>';
+    tbody.appendChild(row);
+    };
+});

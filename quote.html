@@ -85,18 +85,18 @@
                         <div class="row g-2">
                             <!--Full Name-->
                             <div class="mb-3 col-md-6">
-                                <label for="fullName" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="fullName" name="fullname" required>
+                                <label for="autoFullName" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="autoFullName" name="fullname" required>
                             </div>
                             <!--Age-->
                             <div class="mb-3 col-md-6">
-                                <label for="age" class="form-label">Age</label>
-                                <input type="number" class="form-control" id="age" min="16" max="100" name="age" required>
+                                <label for="autoAge" class="form-label">Age</label>
+                                <input type="number" class="form-control" id="autoAge" min="16" max="100" name="age" required>
                             </div>
                             <!--ZIP Code-->
                             <div class="mb-3 col-md-4">
-                                <label for="zipCode" class="form-label">ZIP Code</label>
-                                <input type="text" class="form-control" id="zipCode" name="zipcode" required>
+                                <label for="autoZipCode" class="form-label">ZIP Code</label>
+                                <input type="text" class="form-control" id="autoZipCode" name="zipcode" required>
                             </div>
                             <!--Vehicle Make-->
                             <div class="mb-3 col-md-8">
@@ -147,14 +147,14 @@
                             <!--Coverage Level-->
                             <div class="mb-3 col-md-6">
                                 <legend>Coverage Level</legend>
-                                <input type="radio" id="coveragechoice1" name="coverageLevel" value="basic" required>
-                                <label for="coveragechoice1">Basic</label>
-                                <input type="radio" id="coveragechoice2" name="coverageLevel" value="standard" required>
-                                <label for="coveragechoice2">Standard</label>
-                                <input type="radio" id="coveragechoice3" name="coverageLevel" value="premium" required>
-                                <label for="coveragechoice3">Premium</label>
+                                <input type="radio" id="autoCoverageChoice1" name="autoCoverageLevel" value="basic" required>
+                                <label for="autocoveragechoice1">Basic</label>
+                                <input type="radio" id="autoCoverageChoice2" name="autoCoverageLevel" value="standard" required>
+                                <label for="autoCoverageChoice2">Standard</label>
+                                <input type="radio" id="autoCoverageChoice3" name="autoCoverageLevel" value="premium" required>
+                                <label for="autoCoverageChoice3">Premium</label>
                             </div>
-                            <button type="submit" class="btn btn-warning col-3">Get Quote</button>
+                            <button type="submit" onclick="" class="btn btn-warning col-3">Get Quote</button>
                         </div>
                     </div>
 
@@ -164,18 +164,18 @@
                     <h3>Home Insurance Details</h3>
                     <!--Full Name-->
                     <div class="mb-3">
-                        <label for="fullName" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="fullName" name="fullname" minlength="2" maxlength="20" required>
+                        <label for="homeFullName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="homeFullName" name="fullname" minlength="2" maxlength="20" required>
                     </div>
                     <!--Age-->
                     <div class="mb-3 col-md-6">
-                        <label for="age" class="form-label">Age</label>
-                        <input type="number" class="form-control" id="age" min="16" max="100" name="age" required>
+                        <label for="homeAge" class="form-label">Age</label>
+                        <input type="number" class="form-control" id="homeAge" min="16" max="100" name="age" required>
                     </div>
                     <!--ZIP Code-->
                     <div class="mb-3 col-md-4">
-                        <label for="zipCode" class="form-label">ZIP Code</label>
-                        <input type="text" class="form-control" id="zipCode" name="zipcode" required>
+                        <label for="homeZipCode" class="form-label">ZIP Code</label>
+                        <input type="text" class="form-control" id="homeZipCode" name="zipcode" required>
                     </div>
                     <!--Home Value-->
                     <div class="mb-3">
@@ -206,12 +206,12 @@
                     <!--Coverage Level-->
                     <div class="mb-3 col-md-6">
                         <legend>Coverage Level</legend>
-                        <input type="radio" id="coveragechoice1" name="coverageLevel" value="basic" required>
-                        <label for="coveragechoice1">Basic</label>
-                        <input type="radio" id="coveragechoice2" name="coverageLevel" value="standard" required>
-                        <label for="coveragechoice2">Standard</label>
-                        <input type="radio" id="coveragechoice3" name="coverageLevel" value="premium" required>
-                        <label for="coveragechoice3">Premium</label>
+                        <input type="radio" id="homeCoverageChoice1" name="homeCoverageLevel" value="basic" required>
+                        <label for="homeCoverageChoice1">Basic</label>
+                        <input type="radio" id="homeCoverageChoice2" name="homeCoverageLevel" value="standard" required>
+                        <label for="homeCoverageChoice2">Standard</label>
+                        <input type="radio" id="homeCoverageChoice3" name="homeCoverageLevel" value="premium" required>
+                        <label for="homeCoverageChoice3">Premium</label>
                     </div>
                     <!--Does User Have A Sprinkler System?-->
                     <div class="mb-3">
@@ -233,18 +233,18 @@
                     <h3>Life Insurance Details</h3>
                     <!--Full Name-->
                     <div class="mb-3">
-                        <label for="fullName" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="fullName" name="fullname" minlength="2" maxlength="20" required>
+                        <label for="lifeFullName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="lifeFullName" name="fullname" minlength="2" maxlength="20" required>
                     </div>
                     <!--Age-->
                     <div class="mb-3">
-                        <label for="age" class="form-label">Age</label>
-                        <input type="number" class="form-control" id="age" min="18" max="85" name="age" required>
+                        <label for="lifeAge" class="form-label">Age</label>
+                        <input type="number" class="form-control" id="lifeAge" min="18" max="85" name="age" required>
                     </div>
                     <!--ZIP Code-->
                     <div class="mb-3">
-                        <label for="zipCode" class="form-label">ZIP Code</label>
-                        <input type="text" class="form-control" id="zipCode" name="zipcode" required>
+                        <label for="lifeZipCode" class="form-label">ZIP Code</label>
+                        <input type="text" class="form-control" id="lifeZipCode" name="zipcode" required>
                     </div>
                     <!--Gender-->
                     <div class="mb-3">
@@ -292,12 +292,12 @@
                     <!--Coverage Level-->
                     <div class="mb-3">
                         <legend>Coverage Level</legend>
-                        <input type="radio" id="coveragechoice1" name="coverageLevel" value="basic" required>
-                        <label for="coveragechoice1">Basic</label>
-                        <input type="radio" id="coveragechoice2" name="coverageLevel" value="standard" required>
-                        <label for="coveragechoice2">Standard</label>
-                        <input type="radio" id="coveragechoice3" name="coverageLevel" value="premium" required>
-                        <label for="coveragechoice3">Premium</label>
+                        <input type="radio" id="lifeCoverageChoice1" name="lifeCoverageLevel" value="basic" required>
+                        <label for="lifeCoverageChoice1">Basic</label>
+                        <input type="radio" id="lifeCoverageChoice2" name="lifeCoverageLevel" value="standard" required>
+                        <label for="lifeCoverageChoice2">Standard</label>
+                        <input type="radio" id="lifeCoverageChoice3" name="lifeCoverageLevel" value="premium" required>
+                        <label for="lifeCoverageChoice3">Premium</label>
                     </div>
                     <button type="submit" class="btn btn-warning col-3">Get Quote</button>
                 </div>
