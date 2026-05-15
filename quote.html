@@ -100,7 +100,7 @@
                                 <input type="text" class="form-control" id="autoZipCode" name="autoZipCode">
                             </div>
                             <!--Vehicle Make-->
-                            <div class="mb-3 col-md-8">
+                            <div class="mb-3 col-md-4">
                                 <label for="vehicleMake" class="form-label">Vehicle Make</label>
                                 <select class="form-control" id="vehicleMake">
                                     <option value="">Vehicle Make</option>
@@ -113,7 +113,7 @@
                                 </select>
                             </div>
                             <!--Vehicle Model-->
-                            <div class="mb-3 col-12">
+                            <div class="mb-3 col-md-4">
                                 <label for="vehicleModel" class="form-label">Vehicle Model</label>
                                 <input type="text" class="form-control" id="vehicleModel">
                             </div>
@@ -310,10 +310,11 @@
         </section>
 
         <section id="premiumSummary" class="hidden">
-            <div class="card summary-card d-grid">
+            <div class="card summary-card">
                 <h5>Insurance Quote</h5>
                 <div id="displayBox" class="card-body summary-body">
                 </div>
+                <a id="resetQuote" role="button" class="btn btn-warning col-6">Get another quote</a>
             </div>
             <table class="table table-striped">
                 <thread>
