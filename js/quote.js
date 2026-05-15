@@ -115,9 +115,10 @@ const fieldRules = {
     preExist: {label: 'Pre-existing Conditions', required: false}
 };
 
-const autoSpecificFields = ['autoFullName','autoAge','autoZipCode','vehicleYear', 'vehicleMake', 'vehicleModel', 'annualMileage', 'drivingRecord', 'autoCoverLevel'];
-const homeSpecificFields = ['homeFullName','homeAge','homeZipCode','homeValue', 'yearBuilt', 'squareFootage','constructionType', 'securitySys', 'sprinklerSys', 'homeCoverageLevel'];
-const lifeSpecificFields = ['lifeFullName','lifeAge','lifeZipCode','gender', 'smoker', 'coverageAmount', 'exercise', 'preExist', 'lifeCoverageLevel'];
+const commonFields = ['coverageLevel'];
+const autoSpecificFields = ['autoFullName','autoAge','autoZipCode','vehicleYear', 'vehicleMake', 'vehicleModel', 'annualMileage', 'drivingRecord'];
+const homeSpecificFields = ['homeFullName','homeAge','homeZipCode','homeValue', 'yearBuilt', 'squareFootage','constructionType', 'securitySys', 'sprinklerSys'];
+const lifeSpecificFields = ['lifeFullName','lifeAge','lifeZipCode','gender', 'smoker', 'coverageAmount', 'exercise', 'preExist'];
 
 //const commdonFields = ['fullName', 'age', 'zipCode', 'coverageLevel'];
 
@@ -371,7 +372,7 @@ function validateForm(insuranceType) {
         
         // Handle radio button groups specially
         if (fieldName === 'coverageLevel' || fieldName === 'smoker') {
-            const radioGroupName = fieldName === 'smoker' ? 'smoker' : insuranceType + 'CoverageLevel';
+            const radioGroupName = fieldName === 'smoker' ? 'smoker' : insuranceType + 'coverageLevel';
             if (!validateRadioGroup(radioGroupName)) {
                 errors.push(rules.label + ' is required');
             }

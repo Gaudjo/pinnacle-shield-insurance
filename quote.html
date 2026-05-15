@@ -148,11 +148,11 @@
                             <!--Coverage Level-->
                             <div class="mb-3 col-md-6">
                                 <legend>Coverage Level</legend>
-                                <input type="radio" id="autoCoverageChoice1" name="coverageLevel" value="basic">
+                                <input type="radio" id="autoCoverageChoice1" name="autoCoverageLevel" value="basic">
                                 <label for="autocoveragechoice1">Basic</label>
-                                <input type="radio" id="autoCoverageChoice2" name="coverageLevel" value="standard">
+                                <input type="radio" id="autoCoverageChoice2" name="autoCoverageLevel" value="standard">
                                 <label for="autoCoverageChoice2">Standard</label>
-                                <input type="radio" id="autoCoverageChoice3" name="coverageLevel" value="premium">
+                                <input type="radio" id="autoCoverageChoice3" name="autoCoverageLevel" value="premium">
                                 <label for="autoCoverageChoice3">Premium</label>
                             </div>
                             <button type="submit" onclick="" class="btn btn-warning col-3">Get Quote</button>
@@ -208,11 +208,11 @@
                     <!--Coverage Level-->
                     <div class="mb-3 col-md-6">
                         <legend>Coverage Level</legend>
-                        <input type="radio" id="homeCoverageChoice1" name="coverageLevel" value="basic">
+                        <input type="radio" id="homeCoverageChoice1" name="homeCoverageLevel" value="basic">
                         <label for="homeCoverageChoice1">Basic</label>
-                        <input type="radio" id="homeCoverageChoice2" name="coverageLevel" value="standard">
+                        <input type="radio" id="homeCoverageChoice2" name="homeCoverageLevel" value="standard">
                         <label for="homeCoverageChoice2">Standard</label>
-                        <input type="radio" id="homeCoverageChoice3" name="coverageLevel" value="premium">
+                        <input type="radio" id="homeCoverageChoice3" name="homeCoverageLevel" value="premium">
                         <label for="homeCoverageChoice3">Premium</label>
                     </div>
                     <!--Does User Have A Sprinkler System?-->
@@ -270,6 +270,7 @@
                     <div class="mb-3">
                         <label for="coverageAmount" class="form-label">Coverage Amount</label>
                         <select class="form-control" id="coverageAmount">
+                            <option value="">Coverage Amount</option>
                             <option value="100000">$100,000</option>
                             <option value="250000">$250,000</option>
                             <option value="500000">$500,000</option>
@@ -278,9 +279,9 @@
                     </div>
                     <!--Exercise Frequency-->
                     <div class="mb-3">
-                        <label for="exercise" class="form-label">Exercise</label>
+                        <label for="exercise" class="form-label">Exercise Frequency</label>
                         <select class="form-control" id="exercise">
-                            <option value="">Excerise Frequency</option>
+                            <option value="">Exercise Frequency</option>
                             <option value="rarely">Rarely</option>
                             <option value="1-2times">1-2 Times a Week</option>
                             <option value="3-4times">3-4 Times a Week</option>
@@ -296,11 +297,11 @@
                     <!--Coverage Level-->
                     <div class="mb-3">
                         <legend>Coverage Level</legend>
-                        <input type="radio" id="lifeCoverageChoice1" name="coverageLevel" value="basic">
+                        <input type="radio" id="lifeCoverageChoice1" name="lifeCoverageLevel" value="basic">
                         <label for="lifeCoverageChoice1">Basic</label>
-                        <input type="radio" id="lifeCoverageChoice2" name="coverageLevel" value="standard">
+                        <input type="radio" id="lifeCoverageChoice2" name="lifeCoverageLevel" value="standard">
                         <label for="lifeCoverageChoice2">Standard</label>
-                        <input type="radio" id="lifeCoverageChoice3" name="coverageLevel" value="premium">
+                        <input type="radio" id="lifeCoverageChoice3" name="lifeCoverageLevel" value="premium">
                         <label for="lifeCoverageChoice3">Premium</label>
                     </div>
                     <button type="submit" class="btn btn-warning col-3">Get Quote</button>
@@ -309,7 +310,7 @@
         </section>
 
         <section id="premiumSummary" class="hidden">
-            <div class="card summary-card">
+            <div class="card summary-card d-grid">
                 <h5>Insurance Quote</h5>
                 <div id="displayBox" class="card-body summary-body">
                 </div>

@@ -6,15 +6,18 @@
 
 /*Mobile*/
 html { font-size: 14px; }
+.quote .summary-card {margin-left: 1.5rem;}
 
 /*Tablet and up (768px+)*/
 @media (min-width: 768px) {
     html { font-size: 16; }
+    .quote .summary-card {margin-left: 16rem;}
 }
 
 /*Desktop (1024px+)*/
 @media (min-width: 1024px) {
     html { font-size: 18px; }
+    .quote .summary-card {margin-left: 19rem;}
 }
 
 
@@ -244,7 +247,6 @@ form .mb-3.error {
 }
 
 
-
 .quote .summary-card {
     display: flex;
     flex-wrap: no-wrap;
@@ -252,7 +254,10 @@ form .mb-3.error {
     border: #0056b3 solid;
     border-width: 5px;
     width: 30rem;
-    height: auto; 
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
 }
 
 .quote .summary-card h5{
