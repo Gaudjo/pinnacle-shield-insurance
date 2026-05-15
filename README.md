@@ -5,7 +5,7 @@ The purpose of this repo is to showcase my skills in HTML5, CSS3, Flexbox, Boots
 <br>
 
 ## GitHub Pages Site Link:
-(Placeholder)
+https://gaudjo.github.io/pinnacle-shield-insurance/
 <br>
 <br>
 
