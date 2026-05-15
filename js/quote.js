@@ -403,7 +403,7 @@ function validateForm(insuranceType) {
 
 // Get list of fields to validate based on insurance type
 function getFieldsForType(insuranceType) {
-    let fields = [];
+    let fields = [commonFields];
     
     switch(insuranceType) {
         case 'auto':
