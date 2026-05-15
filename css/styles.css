@@ -6,14 +6,19 @@
 
 /*Mobile*/
 html { font-size: 15px; }
-.search-input {width: 330px;}
+
+footer {font-size: 16px; flex-direction: column; text-align: left;}
+footer .footnav {padding: 10px 0;}
 
 
 /*Tablet and up (768px+)*/
 @media (min-width: 768px) {
-    html { font-size: 16; }
+    html { font-size: 16px; }
+    .search-input {width: 330px;}
     .quote .summary-card {margin-left: 16rem;}
     .about .card {height: 460px;}
+    footer {font-size: 16px; flex-direction: row; text-align: left;}
+    footer .footnav {padding: 0;}
 }
 
 /*Desktop (1024px+)*/
@@ -41,33 +46,6 @@ body, html {
     overflow-x: hidden;
 }
 
-h1 {
-    font-size: 1.8rem;
-}
-
-h2 {
-    font-size: 1.6rem;
-}
-
-h3 {
-    font-size: 1.5rem;
-}
-
-h4 {
-    font-size: 1.4rem;
-}
-
-h5 {
-    font-size: 1.2rem;
-}
-
-h6 {
-    font-size: 1rem;
-}
-
-p {
-    font-size: 0.9rem;
-}
 
 /*--------NAV-BAR--------*/
 nav button {
@@ -104,20 +82,28 @@ nav .collapse {
     padding: 50px;
 }
 
-.card {
+.index .choose{
+    padding: 0 20px;
+}
+
+.index .card {
     display: flex;
 }
-.card img {
-    display: block;
-    padding-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
+
+.index .card-body {
+    flex-shrink: 2;
+}
+
+
+.index .emoji {
+    font-size: 60px;
+    text-align: center;
+    padding-top: 20px;
 }
 
 .choose .card {
     display: flex;
-    height: 20rem;
-    width: 20rem;
+    height: 400px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
 }
 
@@ -421,9 +407,16 @@ form .mb-3.error {
 /*--------FOOTER--------*/
 footer {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-around;
+    text-align: baseline;
     padding: 30px 50px;
     background: #222;
-    color: whitesmoke
+    color: whitesmoke;
+    flex: 1;
+}
+
+
+footer a {
+    text-decoration: none;
+    display: block;
 }
