@@ -6,20 +6,27 @@
 
 /*Mobile*/
 html { font-size: 15px; }
-.search-input {width: 330px;}
+
+footer {font-size: 16px; flex-direction: column; text-align: left;}
+footer .footnav {padding: 10px 0;}
+.quote .summary-card {width: 370px;}
 
 
 /*Tablet and up (768px+)*/
 @media (min-width: 768px) {
-    html { font-size: 16; }
-    .quote .summary-card {margin-left: 16rem;}
+    html { font-size: 16px; }
+    .quote .summary-card {width: 500px;}
+    .search-input {width: 330px;}
     .about .card {height: 460px;}
+    footer {font-size: 16px; flex-direction: row; text-align: left;}
+    footer .footnav {padding: 0;}
+
 }
 
 /*Desktop (1024px+)*/
 @media (min-width: 1024px) {
     html { font-size: 18px; }
-    .quote .summary-card {margin-left: 19rem;}
+    .quote .summary-card {width: 800px;}
     .about .card {height: 580px;}
     .search-input {width: 800px;}
 }
@@ -41,33 +48,6 @@ body, html {
     overflow-x: hidden;
 }
 
-h1 {
-    font-size: 1.8rem;
-}
-
-h2 {
-    font-size: 1.6rem;
-}
-
-h3 {
-    font-size: 1.5rem;
-}
-
-h4 {
-    font-size: 1.4rem;
-}
-
-h5 {
-    font-size: 1.2rem;
-}
-
-h6 {
-    font-size: 1rem;
-}
-
-p {
-    font-size: 0.9rem;
-}
 
 /*--------NAV-BAR--------*/
 nav button {
@@ -104,20 +84,28 @@ nav .collapse {
     padding: 50px;
 }
 
-.card {
+.index .choose{
+    padding: 0 20px;
+}
+
+.index .card {
     display: flex;
 }
-.card img {
-    display: block;
-    padding-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
+
+.index .card-body {
+    flex-shrink: 2;
+}
+
+
+.index .emoji {
+    font-size: 60px;
+    text-align: center;
+    padding-top: 20px;
 }
 
 .choose .card {
     display: flex;
-    height: 20rem;
-    width: 20rem;
+    height: 400px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
 }
 
@@ -164,6 +152,10 @@ nav .collapse {
 .quote .hidden {
     display: none;
 }
+
+#premiumSummary.hidden {
+    display: none;
+}
 .quote .insuranceType {
     cursor: pointer;
     transition: all 0.3s ease;
@@ -177,7 +169,8 @@ nav .collapse {
 
 .quote .insuranceType.selected {
     border-color: #0056b3;
-    background-color: #f8f9fa;
+    background-color: #4395ee;
+    color: whitesmoke;
 }
 
 .quote .card-label {
@@ -251,6 +244,12 @@ form .mb-3.error {
     margin-bottom: 5px;
 }
 
+#premiumSummary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
 
 .quote .summary-card {
     display: flex;
@@ -258,7 +257,6 @@ form .mb-3.error {
     flex: 0 1 auto;
     border: #0056b3 solid;
     border-width: 5px;
-    width: 30rem;
     height: auto;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -293,6 +291,7 @@ form .mb-3.error {
 .about h3 {
     text-align: center;
     text-decoration: underline;
+    padding: 20px;
 }
 
 .about .row {
@@ -307,8 +306,13 @@ form .mb-3.error {
 }
 
 .about .card img{
+    display: block;
     padding: 10px;
     border:#0056b3 3px solid;
+    width: 150px;
+    height: 150px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .about .card-body {
     background: whitesmoke
@@ -421,9 +425,16 @@ form .mb-3.error {
 /*--------FOOTER--------*/
 footer {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-around;
+    text-align: baseline;
     padding: 30px 50px;
     background: #222;
-    color: whitesmoke
+    color: whitesmoke;
+    flex: 1;
+}
+
+
+footer a {
+    text-decoration: none;
+    display: block;
 }

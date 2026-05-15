@@ -74,6 +74,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 const results = document.getElementById('results');
 const validationSummary = document.getElementById('validationSummary');
+// Elements used for displaying the calculated quote
+const premiumSummary = document.getElementById('premiumSummary');
 
 const currentYear = new Date().getFullYear();
 const vehicleYearInput = document.getElementById('vehicleYear');
@@ -372,7 +374,7 @@ function validateForm(insuranceType) {
         
         // Handle radio button groups specially
         if (fieldName === 'coverageLevel' || fieldName === 'smoker') {
-            const radioGroupName = fieldName === 'smoker' ? 'smoker' : insuranceType + 'coverageLevel';
+            const radioGroupName = fieldName === 'smoker' ? 'smoker' : insuranceType + 'CoverageLevel';
             if (!validateRadioGroup(radioGroupName)) {
                 errors.push(rules.label + ' is required');
             }
@@ -404,7 +406,7 @@ function validateForm(insuranceType) {
 
 // Get list of fields to validate based on insurance type
 function getFieldsForType(insuranceType) {
-    let fields = [commonFields];
+    let fields = commonFields.slice();
     
     switch(insuranceType) {
         case 'auto':
@@ -520,6 +522,7 @@ function calculateAutoPremium() {
     // Driving record multiplier
     let recordMultiplier = 1.0;
     let recordDescription = "Clean record";
+    let ticketText = "Clean";
     switch(drivingRecord) {
         case 'clean':
             recordMultiplier = 1.0;
@@ -874,6 +877,7 @@ function displayQuote(result, insuranceType) {
     const displayBox = document.getElementById('displayBox');
     displayBox.innerHTML = `
         <h3>${userName || 'Customer'}</h3>
+        <p>Here is your estimated ${insuranceType} insurance premium based on the information you provided:</p>
         <p>Estimated Monthly Premium: $${result.monthlyPremium}</p>
         <p>Estimated Annual Premium: $${result.annualPremium}</p>
     `;
@@ -893,6 +897,35 @@ function displayQuote(result, insuranceType) {
             tbody.appendChild(row);
         });
     }
+}
+
+// "Get another quote" / reset handler
+// Attach to the existing anchor/button inside the summary card. Prevent navigation and reset UI.
+const resetControl = document.querySelector('#premiumSummary .summary-card a, #premiumSummary .summary-card button');
+if (resetControl) {
+    resetControl.addEventListener('click', function(e) {
+        e.preventDefault();
+        // hide summary
+        if (premiumSummary) premiumSummary.classList.add('hidden');
+        // clear display area
+        const display = document.getElementById('displayBox');
+        if (display) display.innerHTML = '';
+        // reset each form
+        ['autoQuoteForm','homeQuoteForm','lifeQuoteForm'].forEach(id => {
+            const f = document.getElementById(id);
+            if (f) f.reset();
+        });
+        // hide the form blocks
+        ['autoForm','homeForm','lifeForm'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.style.display = 'none';
+        });
+        // clear selected card and radios
+        document.querySelectorAll('.insuranceType').forEach(c => c.classList.remove('selected'));
+        document.querySelectorAll('input[name="insuranceType"]').forEach(r => r.checked = false);
+        // optional: scroll back to top of form selection
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 }
 
 });
