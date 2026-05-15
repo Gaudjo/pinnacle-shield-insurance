@@ -5,19 +5,20 @@
 /*--------MEDIA-QUERIES--------*/
 
 /*Mobile*/
-html { font-size: 14px; }
-.quote .summary-card {margin-left: 1.5rem;}
+html { font-size: 15px; }
 
 /*Tablet and up (768px+)*/
 @media (min-width: 768px) {
     html { font-size: 16; }
     .quote .summary-card {margin-left: 16rem;}
+    .about .card {height: 460px;}
 }
 
 /*Desktop (1024px+)*/
 @media (min-width: 1024px) {
     html { font-size: 18px; }
     .quote .summary-card {margin-left: 19rem;}
+    .about .card {height: 580px;}
 }
 
 
@@ -34,6 +35,7 @@ body, html {
     padding: 0;
     margin: 0;
     height: 100%;
+    overflow-x: hidden;
 }
 
 h1 {
@@ -269,6 +271,66 @@ form .mb-3.error {
 
 
 /*--------ABOUT--------*/
+.about {
+    display: flex;
+    flex-direction: column;
+}
+
+.about .hero {
+    padding: 15px;
+    height: 600px;
+    background: #0056b3;
+    color: whitesmoke;
+}
+
+.about main {
+    padding: 20px 15px;
+}
+
+.about h3 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+.about .row {
+    justify-content: space-around;
+}
+
+.about .card {
+    background: #4395ee;
+    border: #0056b3 3px solid;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+
+}
+
+.about .card img{
+    padding: 10px;
+    border:#0056b3 3px solid;
+}
+.about .card-body {
+    background: whitesmoke
+}
+
+.about .values {
+    background: rgb(226, 224, 224);
+    justify-content: space-around;
+    padding: 15px;
+    flex-wrap: wrap;
+}
+.about .mini-card {
+    height: 15rem;
+    width: 13rem;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 1rem;
+    background: whitesmoke;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    flex: 0 1 auto;
+    text-align: center;
+}
+
+
+
 
 /*--------FAQ--------*/
 
