@@ -6,15 +6,18 @@
 
 /*Mobile*/
 html { font-size: 14px; }
+.quote .summary-card {margin-left: 1.5rem;}
 
 /*Tablet and up (768px+)*/
 @media (min-width: 768px) {
     html { font-size: 16; }
+    .quote .summary-card {margin-left: 16rem;}
 }
 
 /*Desktop (1024px+)*/
 @media (min-width: 1024px) {
     html { font-size: 18px; }
+    .quote .summary-card {margin-left: 19rem;}
 }
 
 
@@ -30,7 +33,7 @@ padding: 0;
 body, html {
     padding: 0;
     margin: 0;
-    width: 100%;
+    height: 100%;
 }
 
 h1 {
@@ -148,6 +151,122 @@ nav .collapse {
 }
 
 /*--------QUOTE--------*/
+.quote{
+    display: flex;
+    flex-direction: column;
+}
+
+.quote .hidden {
+    display: none;
+}
+.quote .insuranceType {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.quote .insuranceType:hover {
+    border-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.quote .insuranceType.selected {
+    border-color: #0056b3;
+    background-color: #f8f9fa;
+}
+
+.quote .card-label {
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.quote .insurance-form {
+    margin-top: 20px;
+}
+.quote main {
+    padding: 10px;
+    flex: 1 0 0;
+    background: whitesmoke;
+}
+
+form .form-control.error,
+form select.error {
+    border-color: #dc3545 !important;
+    border-width: 2px;
+    box-shadow: 0 0 5px rgba(220, 53, 69, 0.5);
+}
+
+form input[type="radio"].error,
+form input[type="checkbox"].error {
+    outline: 2px solid #dc3545;
+    outline-offset: 2px;
+}
+
+form .form-group.error {
+    position: relative;
+}
+
+form .mb-3.error {
+    background-color: rgba(220, 53, 69, 0.05);
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+.validation-summary {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 0.25rem;
+    padding: 12px;
+    margin-bottom: 20px;
+    color: #721c24;
+}
+
+.validation-summary.hidden {
+    display: none;
+}
+
+.validation-summary ul {
+    margin-bottom: 0;
+    padding-left: 20px;
+}
+
+.validation-summary li {
+    margin-bottom: 5px;
+}
+
+
+.quote .summary-card {
+    display: flex;
+    flex-wrap: no-wrap;
+    flex: 0 1 auto;
+    border: #0056b3 solid;
+    border-width: 5px;
+    width: 30rem;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+}
+
+.quote .summary-card h5{
+    text-align: center;
+    padding: 10px;
+    background: #0056b3;
+    
+}
+
 
 /*--------ABOUT--------*/
 
