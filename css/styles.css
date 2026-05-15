@@ -6,6 +6,8 @@
 
 /*Mobile*/
 html { font-size: 15px; }
+.search-input {width: 330px;}
+
 
 /*Tablet and up (768px+)*/
 @media (min-width: 768px) {
@@ -19,6 +21,7 @@ html { font-size: 15px; }
     html { font-size: 18px; }
     .quote .summary-card {margin-left: 19rem;}
     .about .card {height: 580px;}
+    .search-input {width: 800px;}
 }
 
 
@@ -343,6 +346,77 @@ form .mb-3.error {
 
 
 /*--------FAQ--------*/
+.faq {
+    display: flex;
+    flex-direction: column;
+}
+
+.faq .hero {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    text-align:center;
+    justify-content: center;
+    
+}
+
+.faq .hero h2 {
+    font-size: 16px;
+    color: grey;
+}
+
+.faq .searchbar {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    text-align:center;
+    justify-content: space-around;
+    background: #4395ee;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+
+.faq h1 {
+    padding-bottom: 30px;
+}
+
+
+.faq .search {
+    width: max-content;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-radius: 28px;
+    background: #f6f6f6;
+    transition: box-shadow 0.25s;
+}
+
+.search:focus-within {
+    box-shadow: 0 0 4px rgba(0,0, 0, 1)
+}
+
+.search-input {
+    font-size: 16px;
+    font-family: 'Lexend', sans-serif;
+    color: #333333;
+    margin-left: 14px;
+    outline: none;
+    border: none;
+    background: transparent;
+}
+
+.search-input::placeholder {
+    color: rgba(0, 0, 0, 0.25);
+}
+
+.search-icon {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.faq .faq-body {
+    margin: 25px;
+}
+
 
 /*--------FOOTER--------*/
 footer {
