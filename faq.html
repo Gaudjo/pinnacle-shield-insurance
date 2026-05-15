@@ -11,7 +11,7 @@
 
     <link href="css/styles.css" rel="stylesheet">
 </head>
-<body>
+<body class="faq">
     <header>
         <!--GLOBAL NAV BAR-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -31,8 +31,140 @@
             </div>
         </nav>
     </header>
-    <main>
 
+    <main>
+        <!--BOOTSTRAP ACCORDIAN-->
+        <div class="accordion" id="accordionExample">
+
+            <!--Collapse One-->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    What types of insurance do you offer?
+                </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>Pinnacle Shield Insurance offers three main types of personal insurance: <strong>Auto Insurance</strong> for vehicles including cars, trucks, and SUVs; <strong>Home Insurance</strong> for homeowners covering structural damage, personal property, and liability; and <strong>Life Insurance</strong> providing financial protection for your loved ones with both term and whole life options. Each type offers Basic, Standard, and Premium coverage tiers to fit your needs and budget.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!--Collapse Two-->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    How is my premium calculated?
+                </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>Your premium is calculated using a combination of factors specific to each insurance type. For auto insurance, we consider your age, vehicle details, annual mileage, and driving record. For home insurance, factors include your home's value, age, construction type, and installed safety features. Life insurance premiums are based on age, health factors, lifestyle choices, and the coverage amount you select. Our online quote tool shows you a detailed breakdown of exactly how each factor affects your rate — complete transparency, no surprises. </p>
+                    </div>
+                </div>
+            </div>
+
+            <!--Collapse Three-->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Can I change my coverage later?
+                </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse"  data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>Yes, absolutely. You can upgrade or downgrade your coverage level at any time during your policy period. If you upgrade from Basic to Standard or Premium, the change takes effect immediately and your premium will be prorated for the remainder of your billing cycle. If you downgrade, the change takes effect at the start of your next billing cycle. Contact our customer service team or log into your online account to make changes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!--Collapse Four-->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    What factors affect my auto insurance rate?
+                </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse"  data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>Several factors influence your auto insurance premium. <strong>Your age</strong> plays a role — drivers under 25 and over 65 typically pay more due to statistical risk profiles. <strong>Vehicle age</strong> matters because newer cars cost more to repair or replace. <strong>Annual mileage</strong> affects your rate since more time on the road increases the likelihood of an incident. Your <strong>driving record</strong> is significant — a clean record earns the best rates, while tickets and accidents increase premiums. Finally, the <strong>coverage level</strong> you choose (Basic, Standard, or Premium) determines the breadth of protection and directly impacts cost.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!--Collapse 5-->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    Does having a security system lower my home insurance?
+                </button>
+                </h2>
+                <div id="collapseFive" class="accordion-collapse collapse"  data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>Yes! Having a monitored security system qualifies you for a <strong>5% discount</strong> on your home insurance premium. Additionally, if your home has fire sprinklers, you can receive an <strong>8% discount.</strong> These discounts can be combined, so a home with both a security system and fire sprinklers could save up to 13% on monthly premiums. We encourage homeowners to invest in safety features — they protect your family and save you money</p>
+                    </div>
+                </div>
+            </div>
+
+            <!--Collapse Six-->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    What is the difference between Baisc, Standard, and Premium coverage?
+                </button>
+                </h2>
+                <div id="collapseSix" class="accordion-collapse collapse"  data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p><strong>Basic coverage</strong> provides essential protection at the lowest cost. It covers the core risks — liability for auto, structural damage for home, and a standard death benefit for life insurance.<strong>Standard coverage</strong> is our most popular tier and includes everything in Basic plus broader protection like comprehensive and collision for auto, personal property replacement for home, and higher benefit limits for life. <strong>Premium coverage</strong> is our most comprehensive tier, adding benefits like rental car coverage, full replacement value, increased liability limits, and priority claims processing. Premium costs approximately 40% more than Standard but provides the most complete peace of mind.</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Collapse Eight-->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                    Is my personal information secure?
+                </button>
+                </h2>
+                <div id="collapseEight" class="accordion-collapse collapse"  data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>Absolutely. Pinnacle Shield Insurance takes data security seriously. All personal information submitted through our website is encrypted using industry-standard TLS encryption. We never sell your data to third parties. Our systems comply with state and federal data protection regulations, and we conduct regular security audits. The online quote tool does not store your information unless you explicitly create an account. For more details, please review our Privacy Policy linked at the bottom of every page.</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Collapse Nine-->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                    Do you offer bundling discounts?
+                </button>
+                </h2>
+                <div id="collapseNine" class="accordion-collapse collapse"  data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>Yes, we offer bundling discounts when you combine multiple insurance policies. Customers who bundle auto and home insurance save an average of 15% on their total premiums. Adding life insurance to the bundle can increase savings up to 20%. Bundled policies also simplify your experience — one account, one payment date, and one customer service team for all your insurance needs. Use our quote tool to get individual quotes, then contact our team to discuss bundle pricing</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Collapse Ten-->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                    What happens if I miss a payment?
+                </button>
+                </h2>
+                <div id="collapseTen" class="accordion-collapse collapse"  data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>We understand that life happens. If you miss a payment, you have a <strong>30-day grace period</strong> during which your coverage remains active. We'll send email and text reminders during this period. If the payment is not received after 30 days, your policy will be suspended until payment is made. Reinstating a suspended policy is usually straightforward — contact our billing team and pay the outstanding balance. We strongly recommend setting up automatic payments to avoid any gaps in coverage</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <footer>
             <!--GLOBAL FOOTER-->
