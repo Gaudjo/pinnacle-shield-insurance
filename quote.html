@@ -164,75 +164,83 @@
                 <div id="homeForm" class="insurance-form hidden">
                     <div id="validationSummary" class="validation-summary hidden" role="alert"></div>
                     <h3>Home Insurance Details</h3>
-                    <!--Full Name-->
-                    <div class="mb-3">
-                        <label for="homeFullName" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="homeFullName" name="fullname">
+                    <p>* All fields required *</p>
+                    <div class="row g-2">
+                        <!--Full Name-->
+                        <div class="mb-3 col-md-4">
+                            <label for="homeFullName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="homeFullName" name="fullname">
+                        </div>
+                        <!--Age-->
+                        <div class="mb-3 col-md-4">
+                            <label for="homeAge" class="form-label">Age</label>
+                            <input type="number" class="form-control" id="homeAge" name="age">
+                        </div>
+                        <!--ZIP Code-->
+                        <div class="mb-3 col-md-4">
+                            <label for="homeZipCode" class="form-label">ZIP Code</label>
+                            <input type="text" class="form-control" id="homeZipCode" name="zipcode">
+                        </div>
+                        <!--Home Value-->
+                        <div class="mb-3 col-md-6">
+                            <label for="homeValue" class="form-label">Home Value</label>
+                            <input type="number" class="form-control" id="homeValue">
+                        </div>
+                        <!--Year Built-->
+                        <div class="mb-3 col-md-6">
+                            <label for="yearBuilt" class="form-label">Year Built</label>
+                            <input type="number" class="form-control" id="yearBuilt">
+                        </div>
+                        <!--Square Footage-->
+                        <div class="mb-3 col-md-6">
+                            <label for="squareFootage" class="form-label">Square Footage</label>
+                            <input type="number" class="form-control" id="squareFootage">
+                        </div>
+                        <!--Construction Type-->
+                        <div class="mb-3 col-md-6">
+                            <label for="constructionType" class="form-label">Construction Type</label>
+                            <select class="form-control" id="constructionType">
+                                <option value="">Construction Type</option>
+                                <option value="wood">Wood Frame</option>
+                                <option value="brick">Brick</option>
+                                <option value="concrete">Concrete</option>
+                                <option value="steel">Steel</option>
+                            </select>
+                        </div>
+                        <!--Coverage Level-->
+                        <div class="mb-3 col-md-6">
+                            <legend>Coverage Level</legend>
+                            <input type="radio" id="homeCoverageChoice1" name="homeCoverageLevel" value="basic">
+                            <label for="homeCoverageChoice1">Basic</label>
+                            <input type="radio" id="homeCoverageChoice2" name="homeCoverageLevel" value="standard">
+                            <label for="homeCoverageChoice2">Standard</label>
+                            <input type="radio" id="homeCoverageChoice3" name="homeCoverageLevel" value="premium">
+                            <label for="homeCoverageChoice3">Premium</label>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <Legend>Security Systems</Legend>
+                            <!--Does User Have A Sprinkler System?-->
+                            <div>
+                                <label for="sprinklerSys" class="form-label">Has Fire Sprinkler System</label>
+                                <input type="checkbox" id="sprinklerSys" name="sprinklersys" value="yes">
+                            </div>
+                            <!--Does User Have A Security System?-->
+                            <div>
+                                <label for="securitySys" class="form-label">Has Security System</label>
+                                <input type="checkbox" id="securitySys" name="securitysys" value="yes">
+                            </div>
+                        </div>
                     </div>
-                    <!--Age-->
-                    <div class="mb-3 col-md-6">
-                        <label for="homeAge" class="form-label">Age</label>
-                        <input type="number" class="form-control" id="homeAge" name="age">
-                    </div>
-                    <!--ZIP Code-->
-                    <div class="mb-3 col-md-4">
-                        <label for="homeZipCode" class="form-label">ZIP Code</label>
-                        <input type="text" class="form-control" id="homeZipCode" name="zipcode">
-                    </div>
-                    <!--Home Value-->
-                    <div class="mb-3">
-                        <label for="homeValue" class="form-label">Home Value</label>
-                        <input type="number" class="form-control" id="homeValue">
-                    </div>
-                    <!--Year Built-->
-                    <div class="mb-3">
-                        <label for="yearBuilt" class="form-label">Year Built</label>
-                        <input type="number" class="form-control" id="yearBuilt">
-                    </div>
-                    <!--Square Footage-->
-                    <div class="mb-3">
-                        <label for="squareFootage" class="form-label">Square Footage</label>
-                        <input type="number" class="form-control" id="squareFootage">
-                    </div>
-                    <!--Construction Type-->
-                    <div class="mb-3">
-                        <label for="constructionType" class="form-label">Construction Type</label>
-                        <select class="form-control" id="constructionType">
-                            <option value="">Construction Type</option>
-                            <option value="wood">Wood Frame</option>
-                            <option value="brick">Brick</option>
-                            <option value="concrete">Concrete</option>
-                            <option value="steel">Steel</option>
-                        </select>
-                    </div>
-                    <!--Coverage Level-->
-                    <div class="mb-3 col-md-6">
-                        <legend>Coverage Level</legend>
-                        <input type="radio" id="homeCoverageChoice1" name="homeCoverageLevel" value="basic">
-                        <label for="homeCoverageChoice1">Basic</label>
-                        <input type="radio" id="homeCoverageChoice2" name="homeCoverageLevel" value="standard">
-                        <label for="homeCoverageChoice2">Standard</label>
-                        <input type="radio" id="homeCoverageChoice3" name="homeCoverageLevel" value="premium">
-                        <label for="homeCoverageChoice3">Premium</label>
-                    </div>
-                    <!--Does User Have A Sprinkler System?-->
-                    <div class="mb-3">
-                        <label for="sprinklerSys" class="form-label">Has Fire Sprinkler System</label>
-                        <input type="checkbox" id="sprinklerSys" name="sprinklersys" value="yes">
-                    </div>
-                    <!--Does User Have A Security System?-->
-                    <div class="mb-3">
-                        <label for="securitySys" class="form-label">Has Security System</label>
-                        <input type="checkbox" id="securitySys" name="securitysys" value="yes">
-                    </div>
+                    
                     <button type="submit" class="btn btn-warning col-3">Get Quote</button>
                 </div>
-                </form>
-                <form id="lifeQuoteForm">
+            </form>
+            <form id="lifeQuoteForm">
                 <!--Life-Form-->
                 <div id="lifeForm" class="insurance-form hidden">
                     <div id="validationSummary" class="validation-summary hidden" role="alert"></div>
                     <h3>Life Insurance Details</h3>
+                    <p>* All fields required *</p>
                     <!--Full Name-->
                     <div class="mb-3">
                         <label for="lifeFullName" class="form-label">Full Name</label>
@@ -306,7 +314,7 @@
                     </div>
                     <button type="submit" class="btn btn-warning col-3">Get Quote</button>
                 </div>
-                </form>
+            </form>
         </section>
 
         <section id="premiumSummary" class="hidden">
